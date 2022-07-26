@@ -4,7 +4,10 @@
 
 // Fonts
 @import 'https://api.fontshare.com/v2/css?f[]=satoshi@700,701,401,400&f[]=clash-display@700&display=swap';
+@import 'remixicon/fonts/remixicon.css';
 
 body {
   font-family: theme('fontFamily.sans');
+  background-color: theme('colors.dark.500');
+  color: theme('colors.white');
 }
