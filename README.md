@@ -1,94 +1,42 @@
+<h1 align="center">Streali</h1>
+<h3 align="center">The best tool to make your stream prettier.</h3>
 
+<p align="center">
+  <a href="https://twitch.tv/willtraore" target="_blank"><img src="https://img.shields.io/twitch/status/willtraore?style=social" /></a>
+  <a href="https://twitter.com/strealiapp" target="_blank"><img src="https://img.shields.io/twitter/follow/strealiapp?style=social" /></a>
+  <a href=""><img src="https://img.shields.io/github/license/streali/app" /></a>
+</p>
 
-# Streali
+Streali provides you with tools to make your streaming experience easier. Whether to display alerts or highlight messages from your chat, personalize all your stream easily.
 
-This project was generated using [Nx](https://nx.dev).
+## Getting started
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+**Start the front at http://localhost:4200**
 
-🔎 **Smart, Fast and Extensible Build System**
+`yarn start`
 
-## Adding capabilities to your workspace
+**Launch Storybook at http://locahost:4400**
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+`yarn storybook`
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+**Generate a Nx library**
 
-Below are our core plugins:
+`nx g lib mylib --directory=myapp`
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+**Generate a component**
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+`nx g @nrwl/react:component my-component`
 
-## Generate an application
+**Run units tests**
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+`nx affected:test`
 
-> You can use any of the plugins above to generate applications as well.
+## Design system
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+Like the project, the design system is also open source. You can view and use it on Figma.
 
-## Generate a library
+Link to the DS : [https://www.figma.com/community/file/1134034664665218866](https://www.figma.com/community/file/1134034664665218866)
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+## Contributions
 
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@streali/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+Streali is actually in the early stage so all contributions are welcome. You can directly contribute with a PR or take an issue. For better synchronization on the project, you can join [Discord](https://discord.gg/cpzzBrA) but it’s not mandatory.
