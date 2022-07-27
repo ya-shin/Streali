@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import Label from '../label/label';
 
 export enum InputState {
   Normal = 'normal',
-  Focus = 'focus',
   Error = 'error',
   Success = 'success',
 }
@@ -14,6 +14,7 @@ export interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
   containerClassName?: string;
   state?: InputState;
   errorMessage?: string;
+  onChange?: (event: React.ChangeEvent) => void;
 }
 
 export function Input(props: InputProps) {
@@ -24,23 +25,37 @@ export function Input(props: InputProps) {
     containerClassName = '',
     state = InputState.Normal,
     errorMessage,
+    onChange,
     ...inputProps
   } = props;
 
+  const [val, setVal] = useState<string>('');
+
   const stateClassName = {
     [InputState.Normal]: '',
-    [InputState.Focus]: '!border-primary-300',
     [InputState.Error]: '!border-error-500',
     [InputState.Success]: '!border-success-500',
+  };
+
+  const haveValueClassName =
+    val.length > 0 && state === InputState.Normal ? `!border-primary-300` : '';
+
+  const disabledClassName = inputProps.disabled ? '!bg-dark-400' : '';
+
+  const onChangeValue = (event: React.ChangeEvent) => {
+    const { value } = event.target as HTMLInputElement;
+    setVal(value);
+    onChange && onChange(event);
   };
 
   return (
     <label className={containerClassName}>
       {label && <Label className={labelClassName}>{label}</Label>}
       <input
-        className={`h-10 w-full border-2 border-dark-300 text-sm text-white bg-dark-500 rounded-md px-4 outline-none focus:border-primary-300 ${stateClassName[state]} ${className}`}
-        {...inputProps}
+        className={`h-10 w-full border-2 border-dark-300 text-sm text-white bg-dark-500 rounded-md px-4 outline-none focus:border-primary-300 transition ${stateClassName[state]} ${haveValueClassName} ${disabledClassName} ${className}`}
         data-testid="input"
+        onChange={onChangeValue}
+        {...inputProps}
       />
       {errorMessage && (
         <span

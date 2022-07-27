@@ -16,6 +16,7 @@
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-select": "^5.4.0",
     "regenerator-runtime": "0.13.7",
     "remixicon": "^2.5.0",
     "tslib": "^2.3.0"
