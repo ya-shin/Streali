@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ReactSelect, { SingleValue } from 'react-select';
+import ReactSelect, { MultiValue, SingleValue } from 'react-select';
 import Label from '../label/label';
 
 export enum SelectState {
@@ -8,9 +8,11 @@ export enum SelectState {
   Success = 'success',
 }
 
-export interface SelectProps {
+export interface SelectMultipleProps {
   options: SingleValue<{ value: string; label: string }>[];
-  onChange?: (value: SingleValue<{ value: string; label: string }>) => void;
+  onChange?: (
+    value: MultiValue<{ value: string; label: string } | null>
+  ) => void;
   placeholder?: string;
   state?: SelectState;
   label?: string;
@@ -19,7 +21,7 @@ export interface SelectProps {
   errorMessage?: string;
 }
 
-export function Select(props: SelectProps) {
+export function SelectMultiple(props: SelectMultipleProps) {
   const {
     options,
     onChange,
@@ -31,16 +33,18 @@ export function Select(props: SelectProps) {
     errorMessage,
   } = props;
 
-  const [val, setVal] = useState<SingleValue<{
+  const [val, setVal] = useState<MultiValue<{
     value: string;
     label: string;
-  }> | null>(null);
+  } | null> | null>(null);
 
   const handleChange = (
-    value: SingleValue<{ value: string; label: string }>
+    value: MultiValue<{ value: string; label: string } | null>
   ) => {
-    setVal(value);
-    onChange && onChange(value);
+    if (value) {
+      setVal(value);
+      onChange && onChange(value);
+    }
   };
 
   const hasValueClassName = val ? 'select--has-value' : '';
@@ -57,10 +61,10 @@ export function Select(props: SelectProps) {
       <ReactSelect
         options={options}
         classNamePrefix="select"
-        className={`${hasValueClassName} ${stateClassName[state]} ${className}`}
-        onChange={handleChange}
+        className={`select-multiple ${hasValueClassName} ${stateClassName[state]} ${className}`}
+        onChange={(value) => handleChange(value)}
         placeholder={placeholder ? placeholder : 'Select...'}
-        data-testid="select"
+        isMulti
       />
       {errorMessage && (
         <span
@@ -74,4 +78,4 @@ export function Select(props: SelectProps) {
   );
 }
 
-export default Select;
+export default SelectMultiple;

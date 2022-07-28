@@ -85,3 +85,39 @@
 .select__indicator-separator {
   display: none !important;
 }
+
+// Multiple
+
+.select-multiple {
+  .select__control {
+    //padding: theme('spacing.1') !important;
+    //height: theme('spacing.10') !important;
+  }
+
+  .select__value-container {
+    padding: 2px theme('spacing.1') !important;
+  }
+
+  .select__placeholder {
+    color: theme('colors.light.300') !important;
+    padding-left: theme('spacing.4') !important;
+    margin-left: 0 !important;
+  }
+}
+
+.select__multi-value {
+  color: theme('colors.white') !important;
+  font-size: theme('fontSize.sm') !important;
+  background-color: theme('colors.primary.500') !important;
+  height: theme('spacing.6') !important;
+  align-items: center;
+}
+
+.select__multi-value__label {
+  color: theme('colors.white') !important;
+  font-weight: theme('fontWeight.bold') !important;
+}
+
+.select__clear-indicator {
+  display: none !important;
+}
