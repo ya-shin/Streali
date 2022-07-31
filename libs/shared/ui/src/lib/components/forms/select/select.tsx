@@ -17,6 +17,7 @@ export interface SelectProps {
   labelClassName?: string;
   className?: string;
   errorMessage?: string;
+  disabled?: boolean;
 }
 
 export function Select(props: SelectProps) {
@@ -29,6 +30,7 @@ export function Select(props: SelectProps) {
     labelClassName = '',
     className = '',
     errorMessage,
+    disabled = false,
   } = props;
 
   const [val, setVal] = useState<SingleValue<{
@@ -45,6 +47,8 @@ export function Select(props: SelectProps) {
 
   const hasValueClassName = val ? 'select--has-value' : '';
 
+  const isDisabledClassName = disabled ? 'select--disabled' : '';
+
   const stateClassName = {
     [SelectState.Normal]: '',
     [SelectState.Error]: 'select--error',
@@ -57,10 +61,11 @@ export function Select(props: SelectProps) {
       <ReactSelect
         options={options}
         classNamePrefix="select"
-        className={`${hasValueClassName} ${stateClassName[state]} ${className}`}
+        className={`${hasValueClassName} ${isDisabledClassName} ${stateClassName[state]} ${className}`}
         onChange={handleChange}
         placeholder={placeholder ? placeholder : 'Select...'}
         data-testid="select"
+        isDisabled={disabled}
       />
       {errorMessage && (
         <span

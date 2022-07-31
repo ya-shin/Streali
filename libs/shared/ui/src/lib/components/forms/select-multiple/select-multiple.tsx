@@ -19,6 +19,7 @@ export interface SelectMultipleProps {
   labelClassName?: string;
   className?: string;
   errorMessage?: string;
+  disabled?: boolean;
 }
 
 export function SelectMultiple(props: SelectMultipleProps) {
@@ -31,6 +32,7 @@ export function SelectMultiple(props: SelectMultipleProps) {
     labelClassName = '',
     className = '',
     errorMessage,
+    disabled = false,
   } = props;
 
   const [val, setVal] = useState<MultiValue<{
@@ -49,6 +51,8 @@ export function SelectMultiple(props: SelectMultipleProps) {
 
   const hasValueClassName = val ? 'select--has-value' : '';
 
+  const isDisabledClassName = disabled ? 'select--disabled' : '';
+
   const stateClassName = {
     [SelectState.Normal]: '',
     [SelectState.Error]: 'select--error',
@@ -61,10 +65,11 @@ export function SelectMultiple(props: SelectMultipleProps) {
       <ReactSelect
         options={options}
         classNamePrefix="select"
-        className={`select-multiple ${hasValueClassName} ${stateClassName[state]} ${className}`}
+        className={`select-multiple ${hasValueClassName} ${isDisabledClassName} ${stateClassName[state]} ${className}`}
         onChange={(value) => handleChange(value)}
         placeholder={placeholder ? placeholder : 'Select...'}
         isMulti
+        isDisabled={disabled}
       />
       {errorMessage && (
         <span

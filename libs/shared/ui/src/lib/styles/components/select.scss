@@ -121,3 +121,9 @@
 .select__clear-indicator {
   display: none !important;
 }
+
+.select--disabled {
+  .select__control {
+    background-color: theme('colors.dark.400') !important;
+  }
+}
