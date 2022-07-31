@@ -3,10 +3,12 @@ import { Switch } from './switch';
 
 export default {
   component: Switch,
-  title: 'Switch',
+  title: 'Forms/Switch',
 } as ComponentMeta<typeof Switch>;
 
 const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  label: 'Use setting',
+};
