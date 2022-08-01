@@ -1,3 +1,4 @@
+export * from './lib/components/forms/slider/slider';
 export * from './lib/components/forms/textarea/textarea';
 export * from './lib/components/forms/switch/switch';
 export * from './lib/components/forms/checkbox/checkbox';
