@@ -3,7 +3,7 @@ import { Textarea } from './textarea';
 
 export default {
   component: Textarea,
-  title: 'Textarea',
+  title: 'Forms/Textarea',
 } as ComponentMeta<typeof Textarea>;
 
 const Template: ComponentStory<typeof Textarea> = (args) => (
@@ -11,4 +11,6 @@ const Template: ComponentStory<typeof Textarea> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  label: 'Label textarea',
+};
