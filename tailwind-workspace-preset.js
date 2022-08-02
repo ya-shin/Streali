@@ -3,7 +3,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Satoshi', 'Helvetica', 'sans-serif'],
-        icons: ['remixicon']
+        icons: ['remixicon'],
+        title: ['Clash Display', 'Helvetica', 'sans-serif'],
       },
       fontSize: {
         xxs: [
@@ -84,7 +85,21 @@ module.exports = {
          "400": "#a5dc73",
          "500": "#86d313"
         }
-       },
+      },
+      animation: {
+        'dialogFadeIn': 'dialogFadeIn .3s ease-in-out',
+        'dialogFadeOut': 'dialogFadeOut .3s ease-in-out',
+      },
+      keyframes: {
+        'dialogFadeIn': {
+          '0%': { opacity: 0, transform: 'translate(-50%, -48%)' },
+          '100%': { opacity: 1, transform: 'translate(-50%, -50%)'},
+        },
+        'dialogFadeOut': {
+          '100%': { opacity: 1, transform: 'translate(-50%, -50%)' },
+          '0%': { opacity: 0, transform: 'translate(-50%, -48%)'},
+        },
+      }
     },
   },
   variants: {

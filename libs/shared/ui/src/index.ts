@@ -1,3 +1,5 @@
+export * from './lib/components/dialog/dialog';
+export * from './lib/components/forms/file/file';
 export * from './lib/components/forms/slider/slider';
 export * from './lib/components/forms/textarea/textarea';
 export * from './lib/components/forms/switch/switch';

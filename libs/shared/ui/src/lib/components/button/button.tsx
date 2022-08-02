@@ -46,11 +46,11 @@ export function Button(props: ButtonProps) {
 
   const colorChoose = {
     [ButtonColor.Primary]:
-      'bg-primary-500 hover:bg-primary-400 focus:bg-primary-300 outline-primary-300',
+      'bg-primary-500 hover:bg-primary-400 focus-visible:bg-primary-300 outline-primary-300',
     [ButtonColor.Dark]:
-      'bg-dark-500 border-2 border-dark-300 hover:bg-dark-400 focus:bg-dark-300 outline-primary-300',
+      'bg-dark-500 border-2 border-dark-300 hover:bg-dark-400 focus-visible:bg-dark-300 outline-primary-300',
     [ButtonColor.Error]:
-      'bg-error-500 hover:bg-error-400 focus:bg-error-300 outline-error-500',
+      'bg-error-500 hover:bg-error-400 focus-visible:bg-error-300 outline-error-500',
   };
 
   const sizeChoose = {
@@ -61,9 +61,9 @@ export function Button(props: ButtonProps) {
   };
 
   const disabledClassName =
-    'bg-light-100 text-dark-100 hover:bg-light-100 hover:text-dark-100 cursor-default focus:bg-light-100 !outline-light-100';
+    '!bg-light-100 !text-dark-100 hover:bg-light-100 hover:text-dark-100 cursor-default focus-visible:bg-light-100 !outline-light-100';
 
-  const defineClassName = `gap-2 focus:outline-2 focus:outline focus:outline-offset-[3px] inline-flex items-center text-white font-bold transition-colors ${
+  const defineClassName = `gap-2 focus-visible:outline-2 focus-visible:outline focus-visible:outline-offset-[3px] inline-flex items-center text-white font-bold transition-colors ${
     colorChoose[color]
   } ${sizeChoose[size]} ${disabled ? disabledClassName : ''} ${className}`;
 
