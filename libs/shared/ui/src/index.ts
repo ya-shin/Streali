@@ -1,3 +1,4 @@
+export * from './lib/components/avatar/avatar';
 export * from './lib/components/dialog/dialog';
 export * from './lib/components/forms/file/file';
 export * from './lib/components/forms/slider/slider';
