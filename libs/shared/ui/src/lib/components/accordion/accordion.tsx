@@ -1,4 +1,5 @@
 import * as AccordionLib from '@radix-ui/react-accordion';
+import Icon from '../icon/icon';
 
 export interface AccordionProps {
   content: { title: string; content: React.ReactNode; disabled?: boolean }[];
@@ -23,10 +24,18 @@ export function Accordion(props: AccordionProps) {
               }`}
             >
               {title}
+              {!disabled && (
+                <Icon
+                  name="arrow-down-s-line"
+                  className="accordion--arrow transition-transform duration-300"
+                />
+              )}
             </AccordionLib.Trigger>
           </AccordionLib.Header>
-          <AccordionLib.Content className="accordion--content p-4 border-2 border-dark-300 rounded-md mb-3 overflow-hidden">
-            {content}
+          <AccordionLib.Content className="accordion--content">
+            <div className="p-4 border-2 border-dark-300 rounded-md mb-1">
+              {content}
+            </div>
           </AccordionLib.Content>
         </AccordionLib.Item>
       ))}
