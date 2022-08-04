@@ -1,0 +1,35 @@
+.accordion--item {
+  &[data-state='open'] {
+    .accordion--trigger {
+      background: theme('colors.primary.500');
+    }
+
+    .accordion--content {
+      animation: accordionContentOpen 300ms cubic-bezier(0.87, 0, 0.13, 1);
+    }
+  }
+}
+
+// .accordion--content {
+//   &[data-state='open'] {
+//     animation: accordionContentOpen 300ms cubic-bezier(0.87, 0, 0.13, 1);
+//   }
+// }
+
+@keyframes accordionContentOpen {
+  from {
+     height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+// @keyframes accordionContentClose {
+//   from {
+//      height: 0;
+//   }
+//   to {
+//     height: var(--radix-accordion-content-height);
+//   }
+// }
