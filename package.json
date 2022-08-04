@@ -7,6 +7,7 @@
     "build": "nx build",
     "test": "nx test",
     "storybook": "nx run shared-ui:storybook",
+    "build-storybook": "nx run shared-ui:build-storybook",
     "prepare": "husky install"
   },
   "private": true,
