@@ -1,3 +1,4 @@
+export * from './lib/components/tabs/tabs';
 export * from './lib/components/accordion/accordion';
 export * from './lib/components/toast/toast';
 export * from './lib/components/tooltip/tooltip';
