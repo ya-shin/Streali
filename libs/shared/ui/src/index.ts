@@ -1,3 +1,4 @@
+export * from './lib/components/chat-editor/chat-editor';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/accordion/accordion';
 export * from './lib/components/toast/toast';
