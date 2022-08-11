@@ -3,6 +3,7 @@ import Grid from './grid';
 
 export interface ChatEditorProps {
   height: number;
+  width: number;
   elements: { element: React.ReactNode; posX: number; posY: number }[];
   onElementDrag?: (
     index: number,
@@ -14,7 +15,7 @@ export interface ChatEditorProps {
 }
 
 export function ChatEditor(props: ChatEditorProps) {
-  const { height = 200, elements, onElementDrag } = props;
+  const { height = 200, width = 500, elements, onElementDrag } = props;
 
   const handleChange = (e: DraggableData, index: number) => {
     onElementDrag &&
@@ -23,8 +24,8 @@ export function ChatEditor(props: ChatEditorProps) {
 
   return (
     <div
-      style={{ height }}
-      className="bg-dark-500 w-full border-2 border-dark-300 rounded-md relative overflow-hidden"
+      style={{ height, width }}
+      className="bg-dark-500 border-2 border-dark-300 rounded-md relative overflow-hidden"
     >
       {elements.map((element, index) => (
         <Draggable

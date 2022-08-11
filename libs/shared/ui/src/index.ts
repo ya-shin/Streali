@@ -1,3 +1,4 @@
+export * from './lib/components/navigation/nav-vertical/nav-vertical';
 export * from './lib/components/chat-editor/chat-editor';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/accordion/accordion';
