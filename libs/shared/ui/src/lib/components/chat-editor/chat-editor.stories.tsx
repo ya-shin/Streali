@@ -13,21 +13,23 @@ const Template: ComponentStory<typeof ChatEditor> = (args) => (
 const elements = [
   {
     element: (
-      <span className="p-2 bg-black border border-white relative z-10 inline-block">
-        viewer_1
-      </span>
-    ),
-    posX: 50,
-    posY: 30,
-  },
-  {
-    element: (
-      <span className="p-2 bg-black border border-white relative z-10 inline-block">
+      <span className="p-2 bg-warning-500 text-black relative z-10 block">
         This is the message content
       </span>
     ),
     posX: 50,
     posY: 80,
+    fullWidth: true,
+  },
+  {
+    element: (
+      <span className="p-2 bg-error-500 border-white relative z-10 block">
+        viewer_1
+      </span>
+    ),
+    posX: 50,
+    posY: 30,
+    fullWidth: false,
   },
 ];
 

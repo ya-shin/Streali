@@ -4,7 +4,7 @@ function Grid() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute w-full h-full top-0 left-0 opacity-20 z-0 box-content"
+      className="absolute w-[1000px] h-[1000px] -top-[10px] -left-[10px] opacity-20 z-0 box-content"
     >
       <defs>
         <pattern

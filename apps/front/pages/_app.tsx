@@ -1,15 +1,22 @@
+import { NavVertical } from '@streali/shared/ui';
 import { AppProps } from 'next/app';
-import Head from 'next/head';
 import './styles.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
+  const navigation = [
+    {
+      icon: 'chat-1-line',
+      link: '/chatbox/create',
+    },
+  ];
+
   return (
     <>
-      <Head>
-        <title>Welcome to front!</title>
-      </Head>
       <main className="app">
-        <Component {...pageProps} />
+        <NavVertical navigation={navigation} />
+        <div className="w-[calc(100%_-_-72px)] ml-[72px] min-h-screen">
+          <Component {...pageProps} />
+        </div>
       </main>
     </>
   );
