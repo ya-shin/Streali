@@ -1,14 +1,24 @@
 import { useGoogleFonts } from '@streali/shared/hooks';
+import { SingleValue } from 'react-select';
 import Select from '../select/select';
 
 export interface FontSelectProps {
   label?: string;
   className?: string;
   value?: string;
+  defaultValue?: { value: string; label: string };
+  onChange?: (value: SingleValue<{ value: string; label: string }>) => void;
+  disabled?: boolean;
 }
 
 export function FontSelect(props: FontSelectProps) {
-  const { label, className = '', ...otherProps } = props;
+  const {
+    label,
+    className = '',
+    defaultValue = { label: 'Roboto', value: 'Roboto' },
+    disabled,
+    onChange,
+  } = props;
 
   const { data: fonts } = useGoogleFonts();
 
@@ -20,7 +30,9 @@ export function FontSelect(props: FontSelectProps) {
       label={label}
       className={className}
       placeholder="Choose a font..."
-      {...otherProps}
+      defaultValue={defaultValue}
+      disabled={disabled}
+      onChange={onChange}
     />
   );
 }

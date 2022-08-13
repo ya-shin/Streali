@@ -9,7 +9,7 @@ export enum SelectState {
 }
 
 export interface SelectProps {
-  options: SingleValue<{ value: string; label: string }>[];
+  options: { value: string; label: string }[];
   onChange?: (value: SingleValue<{ value: string; label: string }>) => void;
   placeholder?: string;
   state?: SelectState;
@@ -18,6 +18,7 @@ export interface SelectProps {
   className?: string;
   errorMessage?: string;
   disabled?: boolean;
+  defaultValue?: { value: string; label: string };
 }
 
 export function Select(props: SelectProps) {
@@ -31,6 +32,7 @@ export function Select(props: SelectProps) {
     className = '',
     errorMessage,
     disabled = false,
+    defaultValue,
   } = props;
 
   const [val, setVal] = useState<SingleValue<{
@@ -66,6 +68,7 @@ export function Select(props: SelectProps) {
         placeholder={placeholder ? placeholder : 'Select...'}
         data-testid="select"
         isDisabled={disabled}
+        defaultValue={defaultValue}
       />
       {errorMessage && (
         <span

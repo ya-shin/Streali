@@ -1,3 +1,4 @@
+import FontSelect from '../../forms/font-select/font-select';
 import Input from '../../forms/input/input';
 import Slider from '../../forms/slider/slider';
 import Tabs from '../../tabs/tabs';
@@ -17,6 +18,7 @@ export function ChatSettings(props: ChatSettingsProps) {
             min={0}
             className="mb-6 mt-6"
           />
+          <FontSelect label="Choose a font" className="mb-3" />
         </div>
       ),
     },
