@@ -17,7 +17,7 @@ const elements = [
         This is the message content
       </span>
     ),
-    posX: 50,
+    posX: 200,
     posY: 80,
     fullWidth: true,
   },
