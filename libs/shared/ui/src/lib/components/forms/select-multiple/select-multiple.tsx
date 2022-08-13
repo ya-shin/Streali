@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ReactSelect, { MultiValue, SingleValue } from 'react-select';
 import Label from '../label/label';
 
-export enum SelectState {
+export enum SelectMultipleState {
   Normal = 'normal',
   Error = 'error',
   Success = 'success',
@@ -14,7 +14,7 @@ export interface SelectMultipleProps {
     value: MultiValue<{ value: string; label: string } | null>
   ) => void;
   placeholder?: string;
-  state?: SelectState;
+  state?: SelectMultipleState;
   label?: string;
   labelClassName?: string;
   className?: string;
@@ -27,7 +27,7 @@ export function SelectMultiple(props: SelectMultipleProps) {
     options,
     onChange,
     placeholder,
-    state = SelectState.Normal,
+    state = SelectMultipleState.Normal,
     label,
     labelClassName = '',
     className = '',
@@ -54,9 +54,9 @@ export function SelectMultiple(props: SelectMultipleProps) {
   const isDisabledClassName = disabled ? 'select--disabled' : '';
 
   const stateClassName = {
-    [SelectState.Normal]: '',
-    [SelectState.Error]: 'select--error',
-    [SelectState.Success]: 'select--success',
+    [SelectMultipleState.Normal]: '',
+    [SelectMultipleState.Error]: 'select--error',
+    [SelectMultipleState.Success]: 'select--success',
   };
 
   return (

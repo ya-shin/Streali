@@ -1,0 +1,14 @@
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ChatSettings } from './chat-settings';
+
+export default {
+  component: ChatSettings,
+  title: 'Chat/ChatSettings',
+} as ComponentMeta<typeof ChatSettings>;
+
+const Template: ComponentStory<typeof ChatSettings> = (args) => (
+  <ChatSettings {...args} />
+);
+
+export const Primary = Template.bind({});
+Primary.args = {};

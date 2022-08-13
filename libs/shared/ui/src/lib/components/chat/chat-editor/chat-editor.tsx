@@ -60,24 +60,24 @@ export function ChatEditor(props: ChatEditorProps) {
     }
   };
 
-  const handleStop = (index: number, e: DraggableData) => {
-    const element = elementsRef.current[index];
-    if (element) {
-      const matrix = new DOMMatrixReadOnly(element.style.transform);
-      const translateX = matrix.m41;
-      const translateY = matrix.m42;
+  // const handleStop = (index: number, e: DraggableData) => {
+  //   const element = elementsRef.current[index];
+  //   if (element) {
+  //     const matrix = new DOMMatrixReadOnly(element.style.transform);
+  //     const translateX = matrix.m41;
+  //     const translateY = matrix.m42;
 
-      if (e.x > width) {
-        element.style.transform = `translate(${
-          width - e.node.clientWidth
-        }px, ${translateY}px)`;
-      }
+  //     if (e.x > width) {
+  //       element.style.transform = `translate(${
+  //         width - e.node.clientWidth
+  //       }px, ${translateY}px)`;
+  //     }
 
-      if (e.x < 0) {
-        element.style.transform = `translate(0px, ${translateY}px)`;
-      }
-    }
-  };
+  //     if (e.x < 0) {
+  //       element.style.transform = `translate(0px, ${translateY}px)`;
+  //     }
+  //   }
+  // };
 
   const getRightBound = (index: number) => {
     const element = elementsRef.current[index];

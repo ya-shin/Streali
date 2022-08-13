@@ -10,7 +10,7 @@ export function NavVertical(props: NavVerticalProps) {
   const { navigation } = props;
 
   return (
-    <div className="h-screen w-[72px] bg-red-500 border-r border-dark-300 fixed top-0 left-0 flex flex-col justify-between items-center py-3">
+    <div className="h-screen w-[72px] bg-dark-500 border-r border-dark-300 fixed top-0 left-0 flex flex-col justify-between items-center py-3">
       <div>
         <div className="w-10 h-10 bg-dark-100 rounded-full mb-3"></div>
         <div className="flex flex-col gap-1">

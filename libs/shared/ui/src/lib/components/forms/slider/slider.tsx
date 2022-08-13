@@ -10,6 +10,7 @@ export interface SliderProps {
   label?: string;
   labelClassName?: string;
   disabled?: boolean;
+  className?: string;
 }
 
 export function Slider(props: SliderProps) {
@@ -21,11 +22,12 @@ export function Slider(props: SliderProps) {
     label,
     labelClassName,
     disabled = false,
+    className = '',
   } = props;
 
   return (
-    <div>
-      {label && <Label className={`mb-3 ${labelClassName}`}>{label}</Label>}
+    <div className={className}>
+      {label && <Label className={`mb-3.5 ${labelClassName}`}>{label}</Label>}
       <SliderLib.Root
         defaultValue={value}
         min={min}

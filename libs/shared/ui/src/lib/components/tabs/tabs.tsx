@@ -18,9 +18,8 @@ export function Tabs(props: TabsProps) {
 
   const handleChange = (selectedIndex: number) => {
     const selectedTab: TabProps = content[selectedIndex];
-    
-    if (!selectedTab.disabled)
-      setActiveTabIndex(selectedIndex);
+
+    if (!selectedTab.disabled) setActiveTabIndex(selectedIndex);
   };
 
   return (
@@ -28,7 +27,16 @@ export function Tabs(props: TabsProps) {
       <TabsLib.List className="flex gap-2 mb-3">
         {content.map(({ title, disabled }, index) => (
           <TabsLib.Trigger value={'tab-' + index} disabled={disabled}>
-            <Button color={activeTabIndex === index ? ButtonColor.Primary : ButtonColor.Dark} size={ButtonSize.Small} disabled={disabled} onClick={() => handleChange(index)}>
+            <Button
+              color={
+                activeTabIndex === index
+                  ? ButtonColor.Primary
+                  : ButtonColor.Dark
+              }
+              size={ButtonSize.Small}
+              disabled={disabled}
+              onClick={() => handleChange(index)}
+            >
               {title}
             </Button>
           </TabsLib.Trigger>

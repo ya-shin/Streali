@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '../src/lib/styles/main.scss'
 
 export const parameters = {
@@ -11,3 +12,13 @@ export const parameters = {
     ],
   },
 };
+
+const queryClient = new QueryClient()
+
+export const decorators = [
+  (Story) => (
+    <QueryClientProvider client={queryClient}>
+      <Story />
+    </QueryClientProvider>
+  ),
+];
