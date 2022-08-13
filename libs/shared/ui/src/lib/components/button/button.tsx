@@ -27,6 +27,7 @@ export interface ButtonProps {
   external?: boolean;
   onClick?: (e: React.MouseEvent) => void;
   className?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export function Button(props: ButtonProps) {
@@ -42,6 +43,7 @@ export function Button(props: ButtonProps) {
     external,
     onClick,
     className = '',
+    type = 'button',
   } = props;
 
   const colorChoose = {
@@ -104,7 +106,7 @@ export function Button(props: ButtonProps) {
   }
 
   return (
-    <button onClick={onClick} className={defineClassName}>
+    <button onClick={onClick} className={defineClassName} type={type}>
       {buttonContent}
     </button>
   );

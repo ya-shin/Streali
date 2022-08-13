@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import Grid from './grid';
 import interact from 'interactjs';
 import { useEffect } from 'react';

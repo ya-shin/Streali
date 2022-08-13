@@ -11,6 +11,7 @@ export interface SliderProps {
   labelClassName?: string;
   disabled?: boolean;
   className?: string;
+  onChange?: (value: number[]) => void;
 }
 
 export function Slider(props: SliderProps) {
@@ -23,6 +24,7 @@ export function Slider(props: SliderProps) {
     labelClassName,
     disabled = false,
     className = '',
+    onChange,
   } = props;
 
   return (
@@ -30,6 +32,7 @@ export function Slider(props: SliderProps) {
       {label && <Label className={`mb-3.5 ${labelClassName}`}>{label}</Label>}
       <SliderLib.Root
         defaultValue={value}
+        onValueChange={(value) => onChange && onChange(value)}
         min={min}
         max={max}
         step={step}

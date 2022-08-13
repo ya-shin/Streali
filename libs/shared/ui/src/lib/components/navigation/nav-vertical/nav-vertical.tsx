@@ -15,7 +15,7 @@ export function NavVertical(props: NavVerticalProps) {
         <div className="w-10 h-10 bg-dark-100 rounded-full mb-3"></div>
         <div className="flex flex-col gap-1">
           {navigation.map((item) => (
-            <Link href={item.link}>
+            <Link href={item.link} key={item.link}>
               <div className="w-10 h-10 bg-dark-500 rounded-md text-white flex justify-center items-center hover:bg-primary-100 hover:text-primary-500 transition-colors duration-200">
                 <Icon name={item.icon} />
               </div>

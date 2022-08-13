@@ -26,24 +26,34 @@ export function Tabs(props: TabsProps) {
     <TabsLib.Root defaultValue="tab-0">
       <TabsLib.List className="flex gap-2 mb-3">
         {content.map(({ title, disabled }, index) => (
-          <TabsLib.Trigger value={'tab-' + index} disabled={disabled}>
-            <Button
-              color={
-                activeTabIndex === index
-                  ? ButtonColor.Primary
-                  : ButtonColor.Dark
-              }
-              size={ButtonSize.Small}
-              disabled={disabled}
-              onClick={() => handleChange(index)}
-            >
-              {title}
-            </Button>
+          <TabsLib.Trigger
+            value={'tab-' + index}
+            key={title + index}
+            disabled={disabled}
+            asChild
+          >
+            <div className="outline-none">
+              <Button
+                color={
+                  activeTabIndex === index
+                    ? ButtonColor.Primary
+                    : ButtonColor.Dark
+                }
+                size={ButtonSize.Small}
+                disabled={disabled}
+                onClick={() => handleChange(index)}
+                type="button"
+              >
+                {title}
+              </Button>
+            </div>
           </TabsLib.Trigger>
         ))}
       </TabsLib.List>
       {content.map(({ content }, index) => (
-        <TabsLib.Content value={'tab-' + index}>{content}</TabsLib.Content>
+        <TabsLib.Content key={'tab-' + index} value={'tab-' + index}>
+          {content}
+        </TabsLib.Content>
       ))}
     </TabsLib.Root>
   );

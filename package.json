@@ -30,6 +30,7 @@
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
     "react-dropzone": "^14.2.2",
+    "react-hook-form": "^7.34.1",
     "react-hot-toast": "^2.3.0",
     "react-select": "^5.4.0",
     "regenerator-runtime": "0.13.7",

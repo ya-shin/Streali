@@ -1,30 +1,36 @@
+import Button from '../../button/button';
 import FontSelect from '../../forms/font-select/font-select';
 import Input from '../../forms/input/input';
 import Slider from '../../forms/slider/slider';
 import Tabs from '../../tabs/tabs';
+import { useForm, Controller } from 'react-hook-form';
+import Select from '../../forms/select/select';
+import TabsGeneral from './tabs-general';
+import TabsName from './tabs-name';
 
-/* eslint-disable-next-line */
-export interface ChatSettingsProps {}
+export interface ChatSettingsProps {
+  className?: string;
+}
 
 export function ChatSettings(props: ChatSettingsProps) {
+  const { className } = props;
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data: any) => console.log(data);
+
   const tabs = [
     {
       title: 'General',
-      content: (
-        <div>
-          <Slider
-            label="Space between message"
-            max={100}
-            min={0}
-            className="mb-6 mt-6"
-          />
-          <FontSelect label="Choose a font" className="mb-3" />
-        </div>
-      ),
+      content: <TabsGeneral control={control} />,
     },
     {
       title: 'Name',
-      content: <div></div>,
+      content: <TabsName control={control} />,
     },
     {
       title: 'Message',
@@ -33,17 +39,26 @@ export function ChatSettings(props: ChatSettingsProps) {
   ];
 
   return (
-    <div className="w-full h-screen border-r border-dark-300 p-10">
-      <h1 className="text-3xl font-semibold font-title mb-6 block">
-        Chatbox editor
-      </h1>
-      <Input
-        disabled
-        defaultValue="https://app.streali.com/chat/overlay/24352432342"
-        label="Link to copy on browser source"
-        className="mb-6"
-      />
-      <Tabs content={tabs} />
+    <div
+      className={`w-full h-screen border-r border-dark-300 p-10 ${className}`}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex mb-6 justify-between items-center">
+          <h1 className="text-3xl font-semibold font-title block">
+            Chat editor
+          </h1>
+          <Button iconLeft="save-line" type="submit">
+            Save
+          </Button>
+        </div>
+        <Input
+          disabled
+          defaultValue="https://app.streali.com/chat/overlay/24352432342"
+          label="Link to copy on browser source"
+          className="mb-6"
+        />
+        <Tabs content={tabs} />
+      </form>
     </div>
   );
 }
