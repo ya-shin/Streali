@@ -1,3 +1,4 @@
+export * from './lib/components/forms/spacing/spacing';
 export * from './lib/components/forms/color/color';
 export * from './lib/components/forms/font-select/font-select';
 export * from './lib/components/chat/chat-settings/chat-settings';
