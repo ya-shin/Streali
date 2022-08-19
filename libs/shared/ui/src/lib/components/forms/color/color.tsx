@@ -60,6 +60,10 @@ export function Color(props: ColorProps) {
           value={val}
           onChange={onChangeValue}
         />
+        <div
+          className="w-4 h-4 rounded-sm border border-dark-300"
+          style={{ backgroundColor: val }}
+        ></div>
         <input
           type="text"
           className="flex grow bg-transparent border-none outline-none"

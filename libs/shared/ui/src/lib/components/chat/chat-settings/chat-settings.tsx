@@ -1,27 +1,50 @@
 import Button from '../../button/button';
-import FontSelect from '../../forms/font-select/font-select';
 import Input from '../../forms/input/input';
-import Slider from '../../forms/slider/slider';
 import Tabs from '../../tabs/tabs';
-import { useForm, Controller } from 'react-hook-form';
-import Select from '../../forms/select/select';
+import { useForm } from 'react-hook-form';
 import TabsGeneral from './tabs-general';
 import TabsName from './tabs-name';
+import TabsMessage from './tabs-message';
+import { useEffect } from 'react';
 
 export interface ChatSettingsProps {
   className?: string;
+  onSettingsChange: (settings: any) => void;
 }
 
 export function ChatSettings(props: ChatSettingsProps) {
-  const { className } = props;
+  const { className, onSettingsChange } = props;
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { control, handleSubmit, watch, getValues, reset } = useForm();
 
   const onSubmit = (data: any) => console.log(data);
+
+  useEffect(() => {
+    reset({
+      global: {
+        spaceBetweenMessages: 0,
+        align: 'left',
+      },
+      name: {
+        fullWidth: false,
+        fontFamily: 'Roboto',
+        textAlign: 'left',
+        textColor: '#000000',
+        backgroundColor: '#000000',
+        borderColor: '#000000',
+        borderWidth: 0,
+        padding: { top: 0, right: 0, bottom: 0, left: 0 },
+        margin: { top: 0, right: 0, bottom: 0, left: 0 },
+        borderRadius: { top: 0, right: 0, bottom: 0, left: 0 },
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    onSettingsChange(getValues());
+    const subscription = watch((value) => onSettingsChange(value));
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const tabs = [
     {
@@ -34,7 +57,7 @@ export function ChatSettings(props: ChatSettingsProps) {
     },
     {
       title: 'Message',
-      content: <div></div>,
+      content: <TabsMessage control={control} />,
     },
   ];
 

@@ -5,32 +5,21 @@ import Color from '../../forms/color/color';
 import FontSelect from '../../forms/font-select/font-select';
 import Slider from '../../forms/slider/slider';
 import Spacing from '../../forms/spacing/spacing';
-import Switch from '../../forms/switch/switch';
 import TextAlign from '../../forms/text-align/text-align';
 
 export interface TabsGeneralProps {
   control: Control;
 }
 
-function TabsName(props: TabsGeneralProps) {
+function TabsMessage(props: TabsGeneralProps) {
   const { control } = props;
 
   return (
     <div>
       <Accordion>
-        <AccordionItem title="Global settings">
-          <Controller
-            name="name.fullWidth"
-            control={control}
-            defaultValue={false}
-            render={({ field: { onChange } }) => (
-              <Switch label="Full width" onChange={onChange} />
-            )}
-          />
-        </AccordionItem>
         <AccordionItem title="Font settings">
           <Controller
-            name="name.fontFamily"
+            name="name_font"
             control={control}
             defaultValue="Roboto"
             render={({ field: { onChange } }) => (
@@ -42,7 +31,7 @@ function TabsName(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name.textAlign"
+            name="name_text_align"
             control={control}
             defaultValue="left"
             render={({ field: { onChange } }) => (
@@ -52,7 +41,7 @@ function TabsName(props: TabsGeneralProps) {
         </AccordionItem>
         <AccordionItem title="Color settings">
           <Controller
-            name="name.textColor"
+            name="name_text_color"
             control={control}
             defaultValue="#000000"
             render={({ field: { onChange, value } }) => (
@@ -65,7 +54,7 @@ function TabsName(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name.backgroundColor"
+            name="name_background_color"
             control={control}
             defaultValue="#000000"
             render={({ field: { onChange, value } }) => (
@@ -78,7 +67,7 @@ function TabsName(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name.borderColor"
+            name="name_border_color"
             control={control}
             defaultValue="#000000"
             render={({ field: { onChange, value } }) => (
@@ -93,7 +82,7 @@ function TabsName(props: TabsGeneralProps) {
         </AccordionItem>
         <AccordionItem title="Spacing settings">
           <Controller
-            name="name.borderWidth"
+            name="name_border_width"
             control={control}
             defaultValue={0}
             render={({ field: { onChange, value } }) => (
@@ -108,20 +97,7 @@ function TabsName(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name.borderRadius"
-            control={control}
-            defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
-            render={({ field: { onChange, value } }) => (
-              <Spacing
-                className="mb-3"
-                onValueChange={onChange}
-                label="Border radius"
-                value={value}
-              />
-            )}
-          />
-          <Controller
-            name="name.padding"
+            name="name_padding"
             control={control}
             defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
             render={({ field: { onChange, value } }) => (
@@ -134,7 +110,7 @@ function TabsName(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name.margin"
+            name="name_margin"
             control={control}
             defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
             render={({ field: { onChange, value } }) => (
@@ -151,4 +127,4 @@ function TabsName(props: TabsGeneralProps) {
   );
 }
 
-export default TabsName;
+export default TabsMessage;

@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@streali/shared/hooks": ["libs/shared/hooks/src/index.ts"],
+      "@streali/shared/interfaces": ["libs/shared/interfaces/src/index.ts"],
       "@streali/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@streali/shared/utils": ["libs/shared/utils/src/index.ts"]
     }

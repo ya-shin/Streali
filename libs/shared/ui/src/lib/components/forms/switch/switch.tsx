@@ -23,7 +23,7 @@ export function Switch(props: SwitchProps) {
 
   const handleChange = () => {
     if (onChange) {
-      onChange(checked);
+      onChange(!enabled);
     }
     setEnabled(!enabled);
   };

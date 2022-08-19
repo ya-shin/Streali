@@ -17,7 +17,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <main className="app">
         <NavVertical navigation={navigation} />
-        <div className="w-[calc(100%_-_-72px)] ml-[72px] min-h-screen">
+        <div className="w-[calc(100%_-_72px)] ml-[72px] min-h-screen">
           <Component {...pageProps} />
         </div>
       </main>

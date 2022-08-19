@@ -69,6 +69,9 @@ export function Select(props: SelectProps) {
         data-testid="select"
         isDisabled={disabled}
         defaultValue={defaultValue}
+        menuPortalTarget={
+          typeof document !== 'undefined' ? document.body : null
+        }
       />
       {errorMessage && (
         <span

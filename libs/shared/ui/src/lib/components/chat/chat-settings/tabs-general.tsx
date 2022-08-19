@@ -1,10 +1,9 @@
-import { Controller } from 'react-hook-form';
-import FontSelect from '../../forms/font-select/font-select';
+import { Control, Controller } from 'react-hook-form';
 import Select from '../../forms/select/select';
 import Slider from '../../forms/slider/slider';
 
 export interface TabsGeneralProps {
-  control: any;
+  control: Control;
 }
 
 function TabsGeneral(props: TabsGeneralProps) {
@@ -13,7 +12,7 @@ function TabsGeneral(props: TabsGeneralProps) {
   return (
     <div>
       <Controller
-        name="space_between_messages"
+        name="global.spaceBetweenMessages"
         control={control}
         defaultValue={0}
         render={({ field: { onChange } }) => (
@@ -27,19 +26,7 @@ function TabsGeneral(props: TabsGeneralProps) {
         )}
       />
       <Controller
-        name="global_font"
-        control={control}
-        defaultValue="Roboto"
-        render={({ field: { onChange } }) => (
-          <FontSelect
-            label="Font (with Google Fonts)"
-            className="mb-3"
-            onChange={(value) => onChange(value?.value)}
-          />
-        )}
-      />
-      <Controller
-        name="global_align"
+        name="global.align"
         control={control}
         defaultValue="left"
         render={({ field: { onChange } }) => (
@@ -47,6 +34,7 @@ function TabsGeneral(props: TabsGeneralProps) {
             label="Alignment"
             options={[
               { label: 'Left', value: 'left' },
+              { label: 'Center', value: 'center' },
               { label: 'Right', value: 'right' },
             ]}
             onChange={(value) => onChange(value?.value)}

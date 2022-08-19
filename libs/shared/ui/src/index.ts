@@ -1,3 +1,5 @@
+export * from './lib/components/chat/chat-message/chat-message';
+export * from './lib/components/forms/text-align/text-align';
 export * from './lib/components/forms/spacing/spacing';
 export * from './lib/components/forms/color/color';
 export * from './lib/components/forms/font-select/font-select';
@@ -6,6 +8,7 @@ export * from './lib/components/navigation/nav-vertical/nav-vertical';
 export * from './lib/components/chat/chat-editor/chat-editor';
 export * from './lib/components/tabs/tabs';
 export * from './lib/components/accordion/accordion';
+export * from './lib/components/accordion/accordion-item';
 export * from './lib/components/toast/toast';
 export * from './lib/components/tooltip/tooltip';
 export * from './lib/components/avatar/avatar';
