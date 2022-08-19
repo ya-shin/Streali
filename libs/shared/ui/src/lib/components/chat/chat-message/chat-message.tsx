@@ -3,10 +3,12 @@ import { useEffect } from 'react';
 
 export interface ChatMessageProps {
   settings: ChatMessage;
+  name: string;
+  message: string;
 }
 
 export function ChatMessage(props: ChatMessageProps) {
-  const { settings } = props;
+  const { settings, name, message } = props;
 
   const containerStyle = {
     alignItems:
@@ -15,6 +17,8 @@ export function ChatMessage(props: ChatMessageProps) {
         : settings.global.align === 'right'
         ? 'flex-end'
         : 'center',
+    marginBottom: settings.global.spaceBetweenMessages + 'px',
+    flexDirection: settings.global.layout === 'stack' ? 'column' : 'row',
   };
 
   const nameStyle = {
@@ -36,21 +40,42 @@ export function ChatMessage(props: ChatMessageProps) {
     borderRadius: `${settings.name.borderRadius.top}px ${settings.name.borderRadius.right}px ${settings.name.borderRadius.bottom}px ${settings.name.borderRadius.left}px`,
   };
 
+  const messageStyle = {
+    width: settings.message.fullWidth ? '100%' : 'auto',
+    fontFamily: settings.message.fontFamily,
+    color: settings.message.textColor,
+    backgroundColor: settings.message.backgroundColor,
+    textAlign: settings.message.textAlign,
+    borderWidth: settings.message.borderWidth,
+    borderColor: settings.message.borderColor,
+    paddingTop: settings.message.padding.top + 'px',
+    paddingBottom: settings.message.padding.bottom + 'px',
+    paddingLeft: settings.message.padding.left + 'px',
+    paddingRight: settings.message.padding.right + 'px',
+    marginTop: settings.message.margin.top + 'px',
+    marginBottom: settings.message.margin.bottom + 'px',
+    marginLeft: settings.message.margin.left + 'px',
+    marginRight: settings.message.margin.right + 'px',
+    borderRadius: `${settings.message.borderRadius.top}px ${settings.name.borderRadius.right}px ${settings.name.borderRadius.bottom}px ${settings.name.borderRadius.left}px`,
+  };
+
   useEffect(() => {
     (async () => {
       const WebFont = await import('webfontloader');
       WebFont.load({
         google: {
-          families: [nameStyle.fontFamily],
+          families: [nameStyle.fontFamily, messageStyle.fontFamily],
         },
       });
     })();
-  }, [nameStyle.fontFamily]);
+  }, [nameStyle.fontFamily, messageStyle.fontFamily]);
 
   return (
-    <div style={containerStyle} className="flex flex-col w-full">
-      <div style={nameStyle}>Name</div>
-      <div>Message</div>
+    <div style={containerStyle} className="flex w-full">
+      <div style={nameStyle} className="shrink-0">
+        {name}
+      </div>
+      <div style={messageStyle}>{message}</div>
     </div>
   );
 }

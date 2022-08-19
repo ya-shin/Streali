@@ -1,3 +1,4 @@
+export * from './lib/components/chat/chat-demo/chat-demo';
 export * from './lib/components/chat/chat-message/chat-message';
 export * from './lib/components/forms/text-align/text-align';
 export * from './lib/components/forms/spacing/spacing';

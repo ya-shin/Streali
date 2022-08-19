@@ -5,6 +5,7 @@ import Color from '../../forms/color/color';
 import FontSelect from '../../forms/font-select/font-select';
 import Slider from '../../forms/slider/slider';
 import Spacing from '../../forms/spacing/spacing';
+import Switch from '../../forms/switch/switch';
 import TextAlign from '../../forms/text-align/text-align';
 
 export interface TabsGeneralProps {
@@ -17,31 +18,46 @@ function TabsMessage(props: TabsGeneralProps) {
   return (
     <div>
       <Accordion>
+        <AccordionItem title="Global settings">
+          <Controller
+            name="message.fullWidth"
+            control={control}
+            defaultValue={false}
+            render={({ field: { onChange, value } }) => (
+              <Switch label="Full width" onChange={onChange} checked={value} />
+            )}
+          />
+        </AccordionItem>
         <AccordionItem title="Font settings">
           <Controller
-            name="name_font"
+            name="message.fontFamily"
             control={control}
             defaultValue="Roboto"
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, value } }) => (
               <FontSelect
                 label="Font (with Google Fonts)"
                 className="mb-3"
                 onChange={(value) => onChange(value?.value)}
+                defaultValue={{ value: value, label: value }}
               />
             )}
           />
           <Controller
-            name="name_text_align"
+            name="message.textAlign"
             control={control}
             defaultValue="left"
-            render={({ field: { onChange } }) => (
-              <TextAlign onValueChange={onChange} label="Text align" />
+            render={({ field: { onChange, value } }) => (
+              <TextAlign
+                onValueChange={onChange}
+                label="Text align"
+                value={value}
+              />
             )}
           />
         </AccordionItem>
         <AccordionItem title="Color settings">
           <Controller
-            name="name_text_color"
+            name="message.textColor"
             control={control}
             defaultValue="#000000"
             render={({ field: { onChange, value } }) => (
@@ -54,7 +70,7 @@ function TabsMessage(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name_background_color"
+            name="message.backgroundColor"
             control={control}
             defaultValue="#000000"
             render={({ field: { onChange, value } }) => (
@@ -67,7 +83,7 @@ function TabsMessage(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name_border_color"
+            name="message.borderColor"
             control={control}
             defaultValue="#000000"
             render={({ field: { onChange, value } }) => (
@@ -82,7 +98,7 @@ function TabsMessage(props: TabsGeneralProps) {
         </AccordionItem>
         <AccordionItem title="Spacing settings">
           <Controller
-            name="name_border_width"
+            name="message.borderWidth"
             control={control}
             defaultValue={0}
             render={({ field: { onChange, value } }) => (
@@ -97,7 +113,20 @@ function TabsMessage(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name_padding"
+            name="message.borderRadius"
+            control={control}
+            defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
+            render={({ field: { onChange, value } }) => (
+              <Spacing
+                className="mb-3"
+                onValueChange={onChange}
+                label="Border radius"
+                value={value}
+              />
+            )}
+          />
+          <Controller
+            name="message.padding"
             control={control}
             defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
             render={({ field: { onChange, value } }) => (
@@ -110,7 +139,7 @@ function TabsMessage(props: TabsGeneralProps) {
             )}
           />
           <Controller
-            name="name_margin"
+            name="message.margin"
             control={control}
             defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
             render={({ field: { onChange, value } }) => (

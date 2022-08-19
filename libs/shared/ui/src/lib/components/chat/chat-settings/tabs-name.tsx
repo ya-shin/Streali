@@ -23,8 +23,8 @@ function TabsName(props: TabsGeneralProps) {
             name="name.fullWidth"
             control={control}
             defaultValue={false}
-            render={({ field: { onChange } }) => (
-              <Switch label="Full width" onChange={onChange} />
+            render={({ field: { onChange, value } }) => (
+              <Switch label="Full width" onChange={onChange} checked={value} />
             )}
           />
         </AccordionItem>
@@ -33,11 +33,12 @@ function TabsName(props: TabsGeneralProps) {
             name="name.fontFamily"
             control={control}
             defaultValue="Roboto"
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, value } }) => (
               <FontSelect
                 label="Font (with Google Fonts)"
                 className="mb-3"
                 onChange={(value) => onChange(value?.value)}
+                defaultValue={{ label: value, value: value }}
               />
             )}
           />
@@ -45,8 +46,12 @@ function TabsName(props: TabsGeneralProps) {
             name="name.textAlign"
             control={control}
             defaultValue="left"
-            render={({ field: { onChange } }) => (
-              <TextAlign onValueChange={onChange} label="Text align" />
+            render={({ field: { onChange, value } }) => (
+              <TextAlign
+                onValueChange={onChange}
+                label="Text align"
+                value={value}
+              />
             )}
           />
         </AccordionItem>

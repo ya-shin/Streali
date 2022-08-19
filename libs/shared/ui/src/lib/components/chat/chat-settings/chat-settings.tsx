@@ -1,7 +1,7 @@
 import Button from '../../button/button';
 import Input from '../../forms/input/input';
 import Tabs from '../../tabs/tabs';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import TabsGeneral from './tabs-general';
 import TabsName from './tabs-name';
 import TabsMessage from './tabs-message';
@@ -17,7 +17,7 @@ export function ChatSettings(props: ChatSettingsProps) {
 
   const { control, handleSubmit, watch, getValues, reset } = useForm();
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: FieldValues) => console.log(data);
 
   useEffect(() => {
     reset({
@@ -26,6 +26,18 @@ export function ChatSettings(props: ChatSettingsProps) {
         align: 'left',
       },
       name: {
+        fullWidth: false,
+        fontFamily: 'Roboto',
+        textAlign: 'left',
+        textColor: '#000000',
+        backgroundColor: '#000000',
+        borderColor: '#000000',
+        borderWidth: 0,
+        padding: { top: 0, right: 0, bottom: 0, left: 0 },
+        margin: { top: 0, right: 0, bottom: 0, left: 0 },
+        borderRadius: { top: 0, right: 0, bottom: 0, left: 0 },
+      },
+      message: {
         fullWidth: false,
         fontFamily: 'Roboto',
         textAlign: 'left',

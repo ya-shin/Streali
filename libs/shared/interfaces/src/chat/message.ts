@@ -1,6 +1,7 @@
 export interface GlobalChat {
   spaceBetweenMessages: number;
   align: 'left' | 'center' | 'right';
+  layout: 'stack' | 'inline';
 }
 
 export interface NameChat {
@@ -19,7 +20,7 @@ export interface NameChat {
 export interface MessageChat {
   fullWidth: boolean;
   fontFamily: string;
-  textAlign: string;
+  textAlign: 'left' | 'center' | 'right';
   textColor: string;
   backgroundColor: string;
   borderColor: string;
