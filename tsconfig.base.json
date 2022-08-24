@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@streali/shared/api": ["libs/shared/api/src/index.ts"],
       "@streali/shared/hooks": ["libs/shared/hooks/src/index.ts"],
       "@streali/shared/interfaces": ["libs/shared/interfaces/src/index.ts"],
       "@streali/shared/mocks": ["libs/shared/mocks/src/index.ts"],
