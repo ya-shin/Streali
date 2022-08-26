@@ -6,9 +6,15 @@ export interface LoginProps {}
 
 export function Login(props: LoginProps) {
   const handleTwitchLogin = async () => {
-    const { user, session, error } = await supabase.auth.signIn({
-      provider: 'twitch',
-    });
+    await supabase.auth.signIn(
+      {
+        provider: 'twitch',
+      },
+      {
+        scopes:
+          'bits:read channel:read:polls channel:read:charity channel:read:goals channel:read:hype_train channel:read:predictions channel:read:redemptions channel:read:subscriptions channel:read:vips user:read:email user:read:follows user:read:subscriptions',
+      }
+    );
   };
 
   return (

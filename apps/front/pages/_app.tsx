@@ -2,7 +2,7 @@ import { NavVertical } from '@streali/shared/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppProps } from 'next/app';
 import './styles.scss';
-import { SessionProvider } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const navigation = [
@@ -12,18 +12,29 @@ function CustomApp({ Component, pageProps }: AppProps) {
     },
   ];
 
+  const noLayout = ['/login'];
+
+  const router = useRouter();
+  const location = router.pathname;
+
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider>
-        <main className="app">
+      <main className="app">
+        {!noLayout.includes(location) && (
           <NavVertical navigation={navigation} />
-          <div className="w-[calc(100%_-_72px)] ml-[72px] min-h-screen">
-            <Component {...pageProps} />
-          </div>
-        </main>
-      </SessionProvider>
+        )}
+        <div
+          className={`min-h-screen ${
+            noLayout.includes(location)
+              ? 'w-screen ml-0'
+              : 'w-[calc(100%_-_72px)] ml-[72px]'
+          }`}
+        >
+          <Component {...pageProps} />
+        </div>
+      </main>
     </QueryClientProvider>
   );
 }
