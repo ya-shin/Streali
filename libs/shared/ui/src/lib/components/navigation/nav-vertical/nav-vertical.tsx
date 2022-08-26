@@ -1,4 +1,6 @@
+import { supabase } from '@streali/shared/utils';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Avatar from '../../avatar/avatar';
 import Icon from '../../icon/icon';
 
@@ -7,7 +9,14 @@ export interface NavVerticalProps {
 }
 
 export function NavVertical(props: NavVerticalProps) {
+  const [avatar, setAvatar] = useState<string>('');
+
   const { navigation } = props;
+  const user = supabase.auth.user();
+
+  useEffect(() => {
+    setAvatar(user?.user_metadata['avatar_url']);
+  }, [user]);
 
   return (
     <div className="h-screen w-[72px] bg-dark-500 border-r border-dark-300 fixed top-0 left-0 flex flex-col justify-between items-center py-3">
@@ -24,10 +33,7 @@ export function NavVertical(props: NavVerticalProps) {
         </div>
       </div>
       <div>
-        <Avatar
-          size={40}
-          src="https://randomuser.me/api/portraits/women/56.jpg"
-        />
+        <Avatar size={40} src={avatar} />
       </div>
     </div>
   );
