@@ -5,8 +5,6 @@ import { supabase } from '@streali/shared/utils';
 export interface LoginProps {}
 
 export function Login(props: LoginProps) {
-  console.log(supabase.auth.session());
-
   const handleTwitchLogin = async () => {
     const { user, session, error } = await supabase.auth.signIn({
       provider: 'twitch',
