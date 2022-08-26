@@ -1,8 +1,8 @@
-import { ChatMessage } from '@streali/shared/interfaces';
+import { ChatMessage as ChatMessageInterface } from '@streali/shared/interfaces';
 import { useEffect } from 'react';
 
 export interface ChatMessageProps {
-  settings: ChatMessage;
+  settings: ChatMessageInterface;
   name: string;
   message: string;
 }
@@ -16,9 +16,12 @@ export function ChatMessage(props: ChatMessageProps) {
         ? 'flex-start'
         : settings.global.align === 'right'
         ? 'flex-end'
-        : 'center',
+        : ('center' as 'flex-start' | 'flex-end' | 'center'),
     marginBottom: settings.global.spaceBetweenMessages + 'px',
-    flexDirection: settings.global.layout === 'stack' ? 'column' : 'row',
+    flexDirection:
+      settings.global.layout === 'stack'
+        ? 'column'
+        : ('row' as 'column' | 'row'),
   };
 
   const nameStyle = {

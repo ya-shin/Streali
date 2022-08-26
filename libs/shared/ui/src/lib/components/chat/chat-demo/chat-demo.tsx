@@ -30,6 +30,7 @@ export function ChatDemo(props: ChatDemoProps) {
     <div>
       {demo.map((message, index) => (
         <ChatMessage
+          key={index}
           settings={settings}
           name={message.username}
           message={message.message}

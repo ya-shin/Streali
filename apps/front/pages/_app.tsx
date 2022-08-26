@@ -3,12 +3,25 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppProps } from 'next/app';
 import './styles.scss';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { supabase } from '@streali/shared/utils';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const navigation = [
     {
       icon: 'chat-1-line',
-      link: '/chatbox/create',
+      items: [
+        {
+          title: 'Create chat theme',
+          icon: 'add-circle-fill',
+          link: '/chatbox/create',
+        },
+        {
+          title: 'My library',
+          icon: 'folder-5-fill',
+          link: '/',
+        },
+      ],
     },
   ];
 
@@ -18,6 +31,14 @@ function CustomApp({ Component, pageProps }: AppProps) {
   const location = router.pathname;
 
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        router.push('/login');
+      }
+    });
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
