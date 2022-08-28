@@ -27,6 +27,7 @@ export function ChatMessage(props: ChatMessageProps) {
   const nameStyle = {
     width: settings.name.fullWidth ? '100%' : 'auto',
     fontFamily: settings.name.fontFamily,
+    fontSize: settings.name.fontSize + 'px',
     color: settings.name.textColor,
     backgroundColor: settings.name.backgroundColor,
     textAlign: settings.name.textAlign,
@@ -46,6 +47,7 @@ export function ChatMessage(props: ChatMessageProps) {
   const messageStyle = {
     width: settings.message.fullWidth ? '100%' : 'auto',
     fontFamily: settings.message.fontFamily,
+    fontSize: settings.message.fontSize + 'px',
     color: settings.message.textColor,
     backgroundColor: settings.message.backgroundColor,
     textAlign: settings.message.textAlign,

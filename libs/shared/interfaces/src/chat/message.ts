@@ -7,6 +7,7 @@ export interface GlobalChat {
 export interface NameChat {
   fullWidth: boolean;
   fontFamily: string;
+  fontSize: string;
   textAlign: 'left' | 'center' | 'right';
   textColor: string;
   backgroundColor: string;
@@ -14,12 +15,18 @@ export interface NameChat {
   borderWidth: string;
   padding: { top: number; bottom: number; left: number; right: number };
   margin: { top: number; bottom: number; left: number; right: number };
-  borderRadius: { top: number; bottom: number; left: number; right: number };
+  borderRadius: {
+    topLeft: number;
+    topRight: number;
+    bottomRight: number;
+    bottomLeft: number;
+  };
 }
 
 export interface MessageChat {
   fullWidth: boolean;
   fontFamily: string;
+  fontSize: string;
   textAlign: 'left' | 'center' | 'right';
   textColor: string;
   backgroundColor: string;
@@ -27,7 +34,12 @@ export interface MessageChat {
   borderWidth: string;
   padding: { top: number; bottom: number; left: number; right: number };
   margin: { top: number; bottom: number; left: number; right: number };
-  borderRadius: { top: number; bottom: number; left: number; right: number };
+  borderRadius: {
+    topLeft: number;
+    topRight: number;
+    bottomRight: number;
+    bottomLeft: number;
+  };
 }
 
 export interface ChatMessage {

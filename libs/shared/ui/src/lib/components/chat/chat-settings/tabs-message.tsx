@@ -43,6 +43,21 @@ function TabsMessage(props: TabsGeneralProps) {
             )}
           />
           <Controller
+            name="message.fontSize"
+            control={control}
+            defaultValue="16"
+            render={({ field: { onChange, value } }) => (
+              <Slider
+                min={10}
+                max={50}
+                value={[value]}
+                onChange={(value) => onChange(value[0])}
+                className="mb-4"
+                label="Font size"
+              />
+            )}
+          />
+          <Controller
             name="message.textAlign"
             control={control}
             defaultValue="left"

@@ -43,6 +43,21 @@ function TabsName(props: TabsGeneralProps) {
             )}
           />
           <Controller
+            name="name.fontSize"
+            control={control}
+            defaultValue="16"
+            render={({ field: { onChange, value } }) => (
+              <Slider
+                min={10}
+                max={50}
+                value={[value]}
+                onChange={(value) => onChange(value[0])}
+                className="mb-4"
+                label="Font size"
+              />
+            )}
+          />
+          <Controller
             name="name.textAlign"
             control={control}
             defaultValue="left"

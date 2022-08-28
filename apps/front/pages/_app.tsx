@@ -5,6 +5,7 @@ import './styles.scss';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { supabase } from '@streali/shared/utils';
+import { Toaster } from 'react-hot-toast';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const navigation = [
@@ -42,6 +43,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster position="top-right" />
       <main className="app">
         {!noLayout.includes(location) && (
           <NavVertical navigation={navigation} />

@@ -39,3 +39,7 @@ testem.log
 Thumbs.db
 
 .env
+
+# Supabase
+**/supabase/.branches
+**/supabase/.temp
