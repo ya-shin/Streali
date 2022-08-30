@@ -27,7 +27,6 @@ export function ChatMessage(props: ChatMessageProps) {
   const nameStyle = {
     width: settings.name.fullWidth ? '100%' : 'auto',
     fontFamily: settings.name.fontFamily,
-    fontSize: settings.name.fontSize + 'px',
     color: settings.name.textColor,
     backgroundColor: settings.name.backgroundColor,
     textAlign: settings.name.textAlign,
@@ -41,13 +40,12 @@ export function ChatMessage(props: ChatMessageProps) {
     marginBottom: settings.name.margin.bottom + 'px',
     marginLeft: settings.name.margin.left + 'px',
     marginRight: settings.name.margin.right + 'px',
-    borderRadius: `${settings.name.borderRadius.top}px ${settings.name.borderRadius.right}px ${settings.name.borderRadius.bottom}px ${settings.name.borderRadius.left}px`,
+    borderRadius: `${settings.name.borderRadius.topLeft}px ${settings.name.borderRadius.topRight}px ${settings.name.borderRadius.bottomLeft}px ${settings.name.borderRadius.bottomRight}px`,
   };
 
   const messageStyle = {
     width: settings.message.fullWidth ? '100%' : 'auto',
     fontFamily: settings.message.fontFamily,
-    fontSize: settings.message.fontSize + 'px',
     color: settings.message.textColor,
     backgroundColor: settings.message.backgroundColor,
     textAlign: settings.message.textAlign,
@@ -61,7 +59,7 @@ export function ChatMessage(props: ChatMessageProps) {
     marginBottom: settings.message.margin.bottom + 'px',
     marginLeft: settings.message.margin.left + 'px',
     marginRight: settings.message.margin.right + 'px',
-    borderRadius: `${settings.message.borderRadius.top}px ${settings.name.borderRadius.right}px ${settings.name.borderRadius.bottom}px ${settings.name.borderRadius.left}px`,
+    borderRadius: `${settings.message.borderRadius.topLeft}px ${settings.name.borderRadius.topRight}px ${settings.name.borderRadius.bottomLeft}px ${settings.name.borderRadius.bottomRight}px`,
   };
 
   useEffect(() => {

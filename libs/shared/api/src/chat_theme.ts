@@ -3,20 +3,17 @@ import { supabase, toastr, ToastType } from '@streali/shared/utils';
 
 export const createChatTheme = async (
   chatTheme: ChatMessage,
-  userId: string,
-  title: string
+  userId: string
 ) => {
-  const data = {
+  const theme = {
     ...chatTheme,
     global: {
       ...chatTheme.global,
     },
     createdBy: userId,
-    title: title,
   };
-  const { data: theme, error } = await supabase
-    .from('chatthemes')
-    .insert([data]);
+
+  const { data, error } = await supabase.from('chatthemes').insert([theme]);
 
   if (data) {
     toastr(
@@ -30,5 +27,20 @@ export const createChatTheme = async (
     toastr(ToastType.Error, 'Error 🥲', error.message);
   }
 
-  return { theme, error };
+  return { data, error };
+};
+
+export const getUserChatThemes = async (userId: string) => {
+  const { data } = await supabase
+    .from('chatthemes')
+    .select()
+    .eq('createdBy', userId);
+
+  return data;
+};
+
+export const getChatThemeById = async (themeId: string) => {
+  const { data } = await supabase.from('chatthemes').select().eq('id', themeId);
+
+  return data;
 };

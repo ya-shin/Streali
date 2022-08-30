@@ -12,7 +12,7 @@ export interface NameChat {
   textColor: string;
   backgroundColor: string;
   borderColor: string;
-  borderWidth: string;
+  borderWidth: number;
   padding: { top: number; bottom: number; left: number; right: number };
   margin: { top: number; bottom: number; left: number; right: number };
   borderRadius: {
@@ -31,7 +31,7 @@ export interface MessageChat {
   textColor: string;
   backgroundColor: string;
   borderColor: string;
-  borderWidth: string;
+  borderWidth: number;
   padding: { top: number; bottom: number; left: number; right: number };
   margin: { top: number; bottom: number; left: number; right: number };
   borderRadius: {
@@ -46,4 +46,6 @@ export interface ChatMessage {
   global: GlobalChat;
   name: NameChat;
   message: MessageChat;
+  title: string;
+  id?: string;
 }

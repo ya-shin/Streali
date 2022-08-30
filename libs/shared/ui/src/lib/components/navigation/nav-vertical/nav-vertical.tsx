@@ -39,7 +39,7 @@ export function NavVertical(props: NavVerticalProps) {
             <div key={index}>
               <Popover
                 side="right"
-                align="center"
+                align="start"
                 trigger={
                   <div className="w-10 h-10 cursor-pointer bg-dark-500 rounded-md text-white flex justify-center items-center hover:bg-primary-100 hover:text-primary-500 transition-colors duration-200 relative">
                     <Icon name={item.icon} />
@@ -65,7 +65,7 @@ export function NavVertical(props: NavVerticalProps) {
       </div>
       <div>
         <Popover
-          trigger={<Avatar size={40} src={avatar} />}
+          trigger={<Avatar className="cursor-pointer" size={40} src={avatar} />}
           side="right"
           align="end"
         >

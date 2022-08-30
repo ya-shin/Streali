@@ -20,7 +20,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         {
           title: 'My library',
           icon: 'folder-5-fill',
-          link: '/',
+          link: '/chatbox/library',
         },
       ],
     },

@@ -5,10 +5,11 @@ export interface AvatarProps {
   size?: number;
   src?: string;
   tag?: string;
+  className?: string;
 }
 
 export function Avatar(props: AvatarProps) {
-  const { link, size = 40, src, tag } = props;
+  const { link, size = 40, src, tag, className } = props;
 
   const image = () => {
     if (src) {
@@ -17,14 +18,14 @@ export function Avatar(props: AvatarProps) {
           style={{ width: size + 'px', height: size + 'px' }}
           src={src}
           alt="avatar"
-          className="rounded-full"
+          className={`rounded-full ${className}`}
         />
       );
     } else if (tag) {
       return (
         <span
           style={{ width: size + 'px', height: size + 'px' }}
-          className="rounded-full bg-dark-300 flex items-center justify-center text-xs leading-none"
+          className={`rounded-full bg-dark-300 flex items-center justify-center text-xs leading-none ${className}`}
         >
           {tag}
         </span>
@@ -36,7 +37,7 @@ export function Avatar(props: AvatarProps) {
 
   if (link) {
     return (
-      <Link href={link}>
+      <Link href={link} className={className}>
         <a>{image()}</a>
       </Link>
     );

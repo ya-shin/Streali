@@ -18,11 +18,10 @@ export function Popover(props: PopoverProps) {
   };
 
   return (
-    <PopoverLib.Root modal>
+    <PopoverLib.Root>
       <PopoverLib.Trigger asChild>
         <div>{trigger}</div>
       </PopoverLib.Trigger>
-      <PopoverLib.Anchor />
       <PopoverLib.Portal>
         <PopoverLib.Content
           className={`w-[300px] p-3 rounded-md bg-dark-400 ${animationClassName[side]} outline-none`}
