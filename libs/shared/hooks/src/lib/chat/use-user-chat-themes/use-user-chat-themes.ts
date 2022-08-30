@@ -9,10 +9,13 @@ export interface UseUserChatThemes {
   isLoading: boolean;
 }
 
-export function useUserChatThemes(userId: string): UseUserChatThemes {
+export function useUserChatThemes(userId?: string): UseUserChatThemes {
   const { data, error, isLoading } = useQuery(
     ['chat'],
-    async () => await getUserChatThemes(userId)
+    async () => await getUserChatThemes(userId!),
+    {
+      enabled: typeof userId !== 'undefined',
+    }
   );
   return { data, error, isLoading };
 }

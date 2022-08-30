@@ -42,6 +42,8 @@ export function ToastUI(props: ToastProps) {
         </div>
       );
     }
+
+    return null;
   };
 
   return (

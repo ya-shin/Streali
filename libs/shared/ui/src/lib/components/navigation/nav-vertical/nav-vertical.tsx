@@ -1,6 +1,6 @@
 import { supabase } from '@streali/shared/utils';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Avatar from '../../avatar/avatar';
 import Button, { ButtonColor, ButtonSize } from '../../button/button';
 import Icon from '../../icon/icon';
@@ -48,7 +48,7 @@ export function NavVertical(props: NavVerticalProps) {
               >
                 <div className="flex flex-col gap-2">
                   {item.items.map((item, index) => (
-                    <Link href={item.link} key={index}>
+                    <Link to={item.link} key={index}>
                       <div className="inline-flex h-7 gap-2 items-center hover:bg-primary-500 px-2 transition-colors rounded cursor-pointer">
                         <Icon name={item.icon} className="text-sm" />
                         <span className="font-semibold text-sm">
@@ -70,7 +70,7 @@ export function NavVertical(props: NavVerticalProps) {
           align="end"
         >
           <div className="flex flex-col gap-2">
-            <Link href="/profile">
+            <Link to="/profile">
               <div className="inline-flex h-7 gap-2 items-center hover:bg-primary-500 px-2 transition-colors rounded cursor-pointer">
                 <Icon name="user-3-fill" className="text-sm" />
                 <span className="font-semibold text-sm">My profile</span>
