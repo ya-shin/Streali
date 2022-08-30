@@ -4,8 +4,6 @@
   "projects": {
     "app": "apps/app",
     "app-e2e": "apps/app-e2e",
-    "front": "apps/front",
-    "front-e2e": "apps/front-e2e",
     "shared-api": "libs/shared/api",
     "shared-hooks": "libs/shared/hooks",
     "shared-interfaces": "libs/shared/interfaces",

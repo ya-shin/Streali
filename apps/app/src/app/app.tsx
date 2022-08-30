@@ -1,11 +1,16 @@
 import { NavVertical } from '@streali/shared/ui';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { supabase } from '@streali/shared/utils';
+import { useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import CreateChatbox from './pages/chatbox/create';
 import EditChatbox from './pages/chatbox/edit';
 import LibraryChatbox from './pages/chatbox/library';
 import Login from './pages/login';
 
 export function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const navigation = [
     {
       icon: 'chat-1-line',
@@ -24,10 +29,28 @@ export function App() {
     },
   ];
 
+  const noLayout = ['/login'];
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        navigate('/login');
+      }
+    });
+  }, [navigate]);
+
   return (
-    <BrowserRouter>
-      <NavVertical navigation={navigation} />
-      <main className="min-h-screen w-[calc(100%_-_72px)] ml-[72px]">
+    <>
+      {!noLayout.includes(location.pathname) && (
+        <NavVertical navigation={navigation} />
+      )}
+      <main
+        className={`min-h-screen ${
+          !noLayout.includes(location.pathname)
+            ? 'w-[calc(100%_-_72px)] ml-[72px]'
+            : 'w-screen ml-0'
+        }`}
+      >
         <Routes>
           <Route path="/" element={<div>ok</div>} />
           <Route path="/login" element={<Login />} />
@@ -36,7 +59,7 @@ export function App() {
           <Route path="/chatbox/edit/:themeId" element={<EditChatbox />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </>
   );
 }
 

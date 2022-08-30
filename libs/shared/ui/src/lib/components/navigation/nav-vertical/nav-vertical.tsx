@@ -1,9 +1,10 @@
 import { supabase } from '@streali/shared/utils';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Avatar from '../../avatar/avatar';
-import Button, { ButtonColor, ButtonSize } from '../../button/button';
 import Icon from '../../icon/icon';
+import PopoverNavigation, {
+  PopoverLink,
+} from '../../popover-navigation/popover-navigation';
 import Popover from '../../popover/popover';
 
 export interface NavVerticalItems {
@@ -13,7 +14,7 @@ export interface NavVerticalItems {
 }
 
 export interface NavVerticalProps {
-  navigation: { icon: string; items: NavVerticalItems[] }[];
+  navigation: { icon: string; items: PopoverLink[] }[];
 }
 
 export function NavVertical(props: NavVerticalProps) {
@@ -25,6 +26,21 @@ export function NavVertical(props: NavVerticalProps) {
   const handleSignOut = () => {
     supabase.auth.signOut();
   };
+
+  const userNavigation: PopoverLink[] = [
+    {
+      title: 'Profile',
+      icon: 'user-3-line',
+      link: '/profile',
+    },
+    {
+      title: 'Sign out',
+      icon: 'logout-box-line',
+      link: '/login',
+      color: 'error',
+      onClick: handleSignOut,
+    },
+  ];
 
   useEffect(() => {
     setAvatar(user?.user_metadata['avatar_url']);
@@ -47,16 +63,7 @@ export function NavVertical(props: NavVerticalProps) {
                 }
               >
                 <div className="flex flex-col gap-2">
-                  {item.items.map((item, index) => (
-                    <Link to={item.link} key={index}>
-                      <div className="inline-flex h-7 gap-2 items-center hover:bg-primary-500 px-2 transition-colors rounded cursor-pointer">
-                        <Icon name={item.icon} className="text-sm" />
-                        <span className="font-semibold text-sm">
-                          {item.title}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+                  <PopoverNavigation links={item.items} />
                 </div>
               </Popover>
             </div>
@@ -69,21 +76,7 @@ export function NavVertical(props: NavVerticalProps) {
           side="right"
           align="end"
         >
-          <div className="flex flex-col gap-2">
-            <Link to="/profile">
-              <div className="inline-flex h-7 gap-2 items-center hover:bg-primary-500 px-2 transition-colors rounded cursor-pointer">
-                <Icon name="user-3-fill" className="text-sm" />
-                <span className="font-semibold text-sm">My profile</span>
-              </div>
-            </Link>
-            <div
-              className="inline-flex h-7 gap-2 items-center hover:bg-error-500 px-2 transition-colors rounded cursor-pointer w-full"
-              onClick={handleSignOut}
-            >
-              <Icon name="logout-box-line" className="text-sm" />
-              <span className="font-semibold text-sm">Sign out</span>
-            </div>
-          </div>
+          <PopoverNavigation links={userNavigation} />
         </Popover>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/app';
 
@@ -16,7 +17,9 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <Toaster position="top-right" />
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>
 );
