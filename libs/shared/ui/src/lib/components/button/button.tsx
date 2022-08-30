@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Icon from '../icon/icon';
 
 export enum ButtonColor {
@@ -97,10 +97,12 @@ export function Button(props: ButtonProps) {
 
   if (link && !external) {
     return (
-      <Link href={link} passHref>
-        <a data-testid="btn-internallink" className={defineClassName}>
-          {buttonContent}
-        </a>
+      <Link
+        to={link}
+        data-testid="btn-internallink"
+        className={defineClassName}
+      >
+        {buttonContent}
       </Link>
     );
   }

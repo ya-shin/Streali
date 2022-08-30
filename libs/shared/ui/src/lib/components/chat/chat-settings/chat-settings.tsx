@@ -5,47 +5,27 @@ import { Controller, FieldValues, useForm } from 'react-hook-form';
 import TabsGeneral from './tabs-general';
 import TabsName from './tabs-name';
 import TabsMessage from './tabs-message';
-import React, { useEffect, useState } from 'react';
-import { createChatTheme } from '@streali/shared/api';
-import { supabase } from '@streali/shared/utils';
+import React, { useEffect } from 'react';
 import { ChatMessage } from '@streali/shared/interfaces';
-import { useRouter } from 'next/router';
-import { useMutation } from '@tanstack/react-query';
 
 export interface ChatSettingsProps {
   className?: string;
   onSettingsChange: (settings: any) => void;
   defaultSettings: ChatMessage;
+  onSave: (data: FieldValues) => void;
 }
 
 export function ChatSettings(props: ChatSettingsProps) {
-  const { className, onSettingsChange, defaultSettings } = props;
-  const router = useRouter();
-  const { control, handleSubmit, watch, getValues, reset } = useForm();
-
-  const createTheme = useMutation(async (theme: FieldValues) => {
-    const userId = supabase.auth.user()?.id;
-    if (userId) {
-      const { data } = await createChatTheme(theme as ChatMessage, userId);
-      if (data) {
-        router.push(`/`);
-      }
-    }
+  const { className, onSettingsChange, defaultSettings, onSave } = props;
+  const { control, watch, getValues, handleSubmit } = useForm({
+    defaultValues: defaultSettings as FieldValues,
   });
 
-  const onSubmit = async (theme: FieldValues) => {
-    createTheme.mutate(theme);
-  };
-
   useEffect(() => {
-    reset(defaultSettings);
-  }, [defaultSettings]);
-
-  useEffect(() => {
-    onSettingsChange(getValues() as ChatMessage);
-    const subscription = watch((value) => onSettingsChange(value));
+    onSettingsChange(getValues());
+    const subscription = watch((value) => console.log(value));
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch, onSettingsChange, getValues]);
 
   const tabs = [
     {
@@ -62,11 +42,15 @@ export function ChatSettings(props: ChatSettingsProps) {
     },
   ];
 
+  const onSubmit = handleSubmit((theme: FieldValues) => {
+    onSave(theme);
+  });
+
   return (
     <div
       className={`w-full h-screen border-r border-dark-300 p-10 ${className}`}
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className="flex mb-6 justify-between items-center">
           <h1 className="text-3xl font-semibold font-title block">
             Chat editor

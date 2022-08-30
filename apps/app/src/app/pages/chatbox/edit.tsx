@@ -27,6 +27,7 @@ export function EditChatbox() {
         <div className="flex w-full">
           <div className="w-[400px] shrink-0">
             <ChatSettings
+              onSave={(settings) => console.log(settings)}
               onSettingsChange={setSettings}
               defaultSettings={data[0]}
             />
