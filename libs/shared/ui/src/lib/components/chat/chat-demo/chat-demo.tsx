@@ -1,5 +1,6 @@
 import { ChatMessage as Message } from '@streali/shared/interfaces';
 import { chatMessageMock } from '@streali/shared/mocks';
+import { TwitchMessage } from '@streali/shared/schema';
 import { useEffect, useState } from 'react';
 import { ChatMessage } from '../chat-message/chat-message';
 
@@ -10,7 +11,7 @@ export interface ChatDemoProps {
 export function ChatDemo(props: ChatDemoProps) {
   const { settings } = props;
 
-  const [demo, setDemo] = useState<any[]>([]);
+  const [demo, setDemo] = useState<TwitchMessage[]>([]);
 
   useEffect(() => {
     const pushMessage = () => {
@@ -32,7 +33,7 @@ export function ChatDemo(props: ChatDemoProps) {
         <ChatMessage
           key={index}
           settings={settings}
-          name={message.username}
+          name={message.username || 'Streali'}
           message={message.message}
         />
       ))}

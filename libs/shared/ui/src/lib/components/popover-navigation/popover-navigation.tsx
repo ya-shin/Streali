@@ -4,7 +4,7 @@ import Icon from '../icon/icon';
 export interface PopoverLink {
   icon?: string;
   title: string;
-  link: string;
+  link?: string;
   color?: 'primary' | 'dark' | 'error';
   className?: string;
   onClick?: (e: React.MouseEvent) => void;
@@ -27,7 +27,7 @@ export function PopoverNavigation(props: PopoverNavigationProps) {
     <div className="flex flex-col gap-1">
       {links.map((link, index) => (
         <div key={index}>
-          {!link.onClick && (
+          {!link.onClick && link.link && (
             <Link
               to={link.link}
               className={`inline-flex h-7 gap-2 items-center px-2 transition-colors rounded cursor-pointer w-full ${

@@ -28,6 +28,7 @@ export function TextAlign(props: TextAlignProps) {
             currentValue === 'left' ? 'bg-primary-500' : ''
           }`}
           onClick={() => handleChange('left')}
+          type="button"
         >
           <Icon name="align-left" />
         </button>
@@ -36,6 +37,7 @@ export function TextAlign(props: TextAlignProps) {
             currentValue === 'center' ? 'bg-primary-500' : ''
           }`}
           onClick={() => handleChange('center')}
+          type="button"
         >
           <Icon name="align-center" />
         </button>
@@ -44,6 +46,7 @@ export function TextAlign(props: TextAlignProps) {
             currentValue === 'right' ? 'bg-primary-500' : ''
           }`}
           onClick={() => handleChange('right')}
+          type="button"
         >
           <Icon name="align-right" />
         </button>

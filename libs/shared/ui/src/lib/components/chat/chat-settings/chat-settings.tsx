@@ -21,6 +21,8 @@ export function ChatSettings(props: ChatSettingsProps) {
     defaultValues: defaultSettings as FieldValues,
   });
 
+  console.log(defaultSettings);
+
   useEffect(() => {
     onSettingsChange(getValues());
     const subscription = watch((value) => console.log(value));

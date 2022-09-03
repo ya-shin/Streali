@@ -1,11 +1,11 @@
 import { createChatTheme } from '@streali/shared/api';
-import { ChatMessage as Message } from '@streali/shared/interfaces';
 import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
 import { supabase } from '@streali/shared/utils';
 import { useMutation } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import type { ChatTheme } from '@streali/shared/schema';
 
 const defaultSettings = {
   title: 'Chat Theme Title',
@@ -53,13 +53,16 @@ const defaultSettings = {
 };
 
 export function CreateChatbox() {
-  const [settings, setSettings] = useState<Message | null>(defaultSettings);
+  const [settings, setSettings] = useState<Omit<
+    ChatTheme,
+    'id' | 'created_by'
+  > | null>(defaultSettings);
   const navigate = useNavigate();
 
   const createTheme = useMutation(async (theme: FieldValues) => {
     const userId = supabase.auth.user()?.id;
     if (userId) {
-      const { data } = await createChatTheme(theme as Message, userId);
+      const { data } = await createChatTheme(theme as ChatTheme, userId);
       if (data) {
         navigate('/chatbox/library');
       }
@@ -90,7 +93,7 @@ export function CreateChatbox() {
           />
         )}
       </div>
-      <div className="grow p-10 flex flex-col overflow-hidden h-screen items-end justify-end">
+      <div className="flex flex-col items-end justify-end h-screen p-10 overflow-hidden grow">
         {settings && <ChatDemo settings={settings} />}
       </div>
     </div>

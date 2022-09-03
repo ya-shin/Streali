@@ -1,51 +1,72 @@
+import { updateChatTheme } from '@streali/shared/api';
 import { useChatTheme } from '@streali/shared/hooks';
-import { ChatMessage as Message } from '@streali/shared/interfaces';
 import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
+import { supabase } from '@streali/shared/utils';
+import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { FieldValues } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
+import type { ChatTheme } from '@streali/shared/schema';
 
 export function EditChatbox() {
-  const [settings, setSettings] = useState<Message | null>(null);
-
   const { themeId } = useParams();
+  const { data: theme, status, error } = useChatTheme(themeId);
+  const [settings, setSettings] = useState<ChatTheme | null>(null);
+  const navigate = useNavigate();
 
-  const { data, isLoading } = useChatTheme(themeId);
+  const createTheme = useMutation(async (theme: FieldValues) => {
+    const userId = supabase.auth.user()?.id;
+    if (userId) {
+      const { data } = await updateChatTheme(theme as ChatTheme, userId);
+      if (data) {
+        navigate('/chatbox/library');
+      }
+    }
+  });
 
   useEffect(() => {
-    data &&
-      setSettings({
-        title: data[0].title,
-        global: data[0].global,
-        name: data[0].name,
-        message: data[0].message,
-      });
-  }, [data]);
+    if (theme) {
+      setSettings(theme);
+    }
+  }, [theme]);
+
+  const handleSubmit = (theme: FieldValues) => {
+    createTheme.mutate(theme);
+  };
+
+  if (status === 'loading' || !settings) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>ERROR PUTAIN</div>;
+  }
 
   return (
-    <div>
-      {!isLoading && data && (
-        <div className="flex w-full">
-          <div className="w-[400px] shrink-0">
-            <ChatSettings
-              onSave={(settings) => console.log(settings)}
-              onSettingsChange={setSettings}
-              defaultSettings={data[0]}
-            />
-          </div>
-          <div className="w-[400px] shrink-0 border-r border-dark-300 flex justify-center items-center px-3">
-            {settings && (
-              <ChatMessage
-                settings={settings}
-                name="viewer_1"
-                message="This is message content"
-              />
-            )}
-          </div>
-          <div className="grow p-10 flex flex-col overflow-hidden h-screen items-end justify-end">
-            {settings && <ChatDemo settings={settings} />}
-          </div>
-        </div>
-      )}
+    <div className="flex w-full">
+      <div className="w-[400px] shrink-0">
+        {settings && (
+          <ChatSettings
+            onSettingsChange={(settings) => {
+              setSettings(settings);
+            }}
+            defaultSettings={settings}
+            onSave={handleSubmit}
+          />
+        )}
+      </div>
+      <div className="w-[400px] shrink-0 border-r border-dark-300 flex justify-center items-center px-3">
+        {settings && (
+          <ChatMessage
+            settings={settings}
+            name="viewer_1"
+            message="This is message content"
+          />
+        )}
+      </div>
+      <div className="flex flex-col items-end justify-end h-screen p-10 overflow-hidden grow">
+        {settings && <ChatDemo settings={settings} />}
+      </div>
     </div>
   );
 }
