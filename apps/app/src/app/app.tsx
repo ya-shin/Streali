@@ -1,12 +1,29 @@
 import { NavVertical } from '@streali/shared/ui';
 import { supabase } from '@streali/shared/utils';
 import { useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Outlet,
+  Navigate,
+} from 'react-router-dom';
 import CreateChatbox from './pages/chatbox/create';
 import EditChatbox from './pages/chatbox/edit';
 import EmbedChatbox from './pages/chatbox/embed';
 import LibraryChatbox from './pages/chatbox/library';
 import Login from './pages/login';
+
+const ProtectedRoute = ({ redirectPath = '/login' }) => {
+  const user = supabase.auth.user();
+
+  if (!user) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return <Outlet />;
+};
 
 export function App() {
   const navigate = useNavigate();
@@ -53,12 +70,14 @@ export function App() {
         }`}
       >
         <Routes>
-          <Route path="/" element={<div>ok</div>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/chatbox/create" element={<CreateChatbox />} />
-          <Route path="/chatbox/library" element={<LibraryChatbox />} />
-          <Route path="/chatbox/:themeId/edit" element={<EditChatbox />} />
-          <Route path="/chatbox/:themeId/embed" element={<EmbedChatbox />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<div>ok</div>} />
+            <Route path="/chatbox/create" element={<CreateChatbox />} />
+            <Route path="/chatbox/library" element={<LibraryChatbox />} />
+            <Route path="/chatbox/:themeId/edit" element={<EditChatbox />} />
+            <Route path="/chatbox/:themeId/embed" element={<EmbedChatbox />} />
+          </Route>
         </Routes>
       </main>
     </>
