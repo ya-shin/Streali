@@ -6,12 +6,12 @@ import TabsGeneral from './tabs-general';
 import TabsName from './tabs-name';
 import TabsMessage from './tabs-message';
 import React, { useEffect } from 'react';
-import { ChatMessage } from '@streali/shared/interfaces';
+import type { ChatTheme } from '@streali/shared/schema';
 
 export interface ChatSettingsProps {
   className?: string;
   onSettingsChange: (settings: any) => void;
-  defaultSettings: ChatMessage;
+  defaultSettings: Omit<ChatTheme, 'created_by' | 'id'> | ChatTheme;
   onSave: (data: FieldValues) => void;
 }
 
@@ -20,8 +20,6 @@ export function ChatSettings(props: ChatSettingsProps) {
   const { control, watch, getValues, handleSubmit } = useForm({
     defaultValues: defaultSettings as FieldValues,
   });
-
-  console.log(defaultSettings);
 
   useEffect(() => {
     onSettingsChange(getValues());

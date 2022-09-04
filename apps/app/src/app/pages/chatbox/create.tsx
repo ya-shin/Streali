@@ -7,7 +7,7 @@ import { FieldValues } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import type { ChatTheme } from '@streali/shared/schema';
 
-const defaultSettings = {
+const defaultSettings: Omit<ChatTheme, 'created_by' | 'id'> | ChatTheme = {
   title: 'Chat Theme Title',
   global: {
     spaceBetweenMessages: 12,

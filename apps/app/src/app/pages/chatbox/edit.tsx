@@ -1,6 +1,12 @@
 import { updateChatTheme } from '@streali/shared/api';
 import { useChatTheme } from '@streali/shared/hooks';
-import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
+import {
+  ChatDemo,
+  ChatMessage,
+  ChatSettings,
+  CodeEditor,
+  CodeEditorLanguage,
+} from '@streali/shared/ui';
 import { supabase } from '@streali/shared/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';

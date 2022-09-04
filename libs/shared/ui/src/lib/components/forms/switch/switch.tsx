@@ -29,12 +29,15 @@ export function Switch(props: SwitchProps) {
   };
 
   return (
-    <div className="flex items-center gap-3" onClick={handleChange}>
+    <div
+      className={`flex items-center gap-3 ${className}`}
+      onClick={handleChange}
+    >
       <SwitchLib
         checked={enabled}
         onChange={setEnabled}
         className={`${enabled ? 'bg-primary-500' : 'bg-dark-300'}
-            relative inline-flex h-6 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-primary-300 focus-visible:ring-opacity-100 p-0.5 ${className}`}
+            relative inline-flex h-6 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-primary-300 focus-visible:ring-opacity-100 p-0.5`}
       >
         <span className="sr-only">Use setting</span>
         <span

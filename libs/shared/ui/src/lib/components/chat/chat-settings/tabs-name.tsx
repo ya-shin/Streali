@@ -3,6 +3,7 @@ import Accordion from '../../accordion/accordion';
 import AccordionItem from '../../accordion/accordion-item';
 import Color from '../../forms/color/color';
 import FontSelect from '../../forms/font-select/font-select';
+import Select from '../../forms/select/select';
 import Slider from '../../forms/slider/slider';
 import Spacing from '../../forms/spacing/spacing';
 import Switch from '../../forms/switch/switch';
@@ -24,7 +25,41 @@ function TabsName(props: TabsGeneralProps) {
             control={control}
             defaultValue={false}
             render={({ field: { onChange, value } }) => (
-              <Switch label="Full width" onChange={onChange} checked={value} />
+              <Switch
+                label="Full width"
+                onChange={onChange}
+                checked={value}
+                className="mb-3"
+              />
+            )}
+          />
+          <Controller
+            name="name.badges"
+            control={control}
+            defaultValue={false}
+            render={({ field: { onChange, value } }) => (
+              <Switch
+                checked={value}
+                label="Add Twitch Badges"
+                onChange={onChange}
+                className="mb-3"
+              />
+            )}
+          />
+          <Controller
+            name="name.badgesStyle"
+            control={control}
+            defaultValue={{ label: 'Twitch default', value: 'twitch' }}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                label="Badges style"
+                defaultValue={value}
+                onChange={onChange}
+                options={[
+                  { label: 'Twitch default', value: 'twitch' },
+                  { label: 'Minimal', value: 'minimal' },
+                ]}
+              />
             )}
           />
         </AccordionItem>
