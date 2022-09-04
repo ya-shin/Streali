@@ -15,7 +15,7 @@ import './main.scss';
 import { toastr, ToastType } from '@streali/shared/utils';
 import { ApiError } from '@supabase/supabase-js';
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) => {
       const err = error as ApiError;
@@ -30,7 +30,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
       <Toaster position="top-right" />
       <BrowserRouter>
         <App />

@@ -1,3 +1,4 @@
+export * from './lib/components/confirmation/confirmation';
 export * from './lib/components/code-editor/code-editor';
 export * from './lib/components/popover-navigation/popover-navigation';
 export * from './lib/components/popover/popover';

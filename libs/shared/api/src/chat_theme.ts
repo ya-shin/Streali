@@ -77,3 +77,22 @@ export const updateChatTheme = async (chatTheme: ChatTheme, userId: string) => {
 
   return { data, error };
 };
+
+export const deleteChatTheme = async (themeId: string) => {
+  const { error } = await supabase
+    .from('chat_themes')
+    .delete()
+    .eq('id', themeId);
+
+  if (error) {
+    toastr(ToastType.Error, 'Error 😞', error.message);
+  } else {
+    toastr(
+      ToastType.Success,
+      'Theme deleted',
+      'Your theme is successfuly deleted !'
+    );
+  }
+
+  return { id: themeId, error };
+};

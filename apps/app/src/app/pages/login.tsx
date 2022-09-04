@@ -1,10 +1,21 @@
 import { Button } from '@streali/shared/ui';
 import { supabase } from '@streali/shared/utils';
+import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
 
 export function Login(props: LoginProps) {
+  const [isLogin, setIsLogin] = useState(false);
+  const user = supabase.auth.user();
+
+  useEffect(() => {
+    if (user) {
+      setIsLogin(true);
+    }
+  }, [user]);
+
   const handleTwitchLogin = async () => {
     await supabase.auth.signIn(
       {
@@ -16,6 +27,10 @@ export function Login(props: LoginProps) {
       }
     );
   };
+
+  if (isLogin) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="h-screen flex justify-center items-center">

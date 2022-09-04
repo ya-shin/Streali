@@ -72,7 +72,10 @@ export function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<div>ok</div>} />
+            <Route
+              path="/"
+              element={<Navigate replace to="/chatbox/library" />}
+            />
             <Route path="/chatbox/create" element={<CreateChatbox />} />
             <Route path="/chatbox/library" element={<LibraryChatbox />} />
             <Route path="/chatbox/:themeId/edit" element={<EditChatbox />} />

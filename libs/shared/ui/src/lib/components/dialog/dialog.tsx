@@ -16,7 +16,7 @@ export function Dialog(props: DialogProps) {
 
   return (
     <DialogLib.Root defaultOpen={isOpen} onOpenChange={(o) => setIsOpen(o)}>
-      <DialogLib.Trigger>{trigger}</DialogLib.Trigger>
+      <DialogLib.Trigger className="w-full">{trigger}</DialogLib.Trigger>
       <DialogLib.Portal>
         <DialogLib.Overlay className="w-full h-full bg-dark-500 opacity-70 fixed top-0 left-0 z-10" />
         <DialogLib.Content

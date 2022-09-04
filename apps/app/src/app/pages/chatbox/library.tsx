@@ -1,3 +1,4 @@
+import { deleteChatTheme } from '@streali/shared/api';
 import { useUserChatThemes } from '@streali/shared/hooks';
 import {
   Button,
@@ -6,10 +7,15 @@ import {
   PopoverNavigation,
 } from '@streali/shared/ui';
 import { supabase, toastr, ToastType } from '@streali/shared/utils';
+import { useMutation } from '@tanstack/react-query';
 
 export function LibraryChatbox() {
   const userId = supabase.auth.user()?.id;
   const { data, isLoading } = useUserChatThemes(userId);
+
+  const deleteTheme = useMutation(async (themeId: string) => {
+    deleteChatTheme(themeId);
+  });
 
   return (
     <div className="p-10">
@@ -58,6 +64,22 @@ export function LibraryChatbox() {
                           );
                         },
                         icon: 'file-copy-line',
+                      },
+                      {
+                        title: 'Delete',
+                        icon: 'delete-bin-line',
+                        color: 'error',
+                        confirm: {
+                          title: 'Delete chatbox',
+                          text: 'Are you sure you want to delete this chatbox theme?',
+                          word: theme.title,
+                          confirmText:
+                            'For delete this chatbox theme, type the name of the chatbox theme',
+                          textButton: 'Delete',
+                          onConfirm: () => {
+                            theme.id && deleteTheme.mutate(theme.id);
+                          },
+                        },
                       },
                     ]}
                   />
