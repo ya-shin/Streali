@@ -2,16 +2,26 @@ import React, { useState } from 'react';
 import Input from '../input/input';
 import Label from '../label/label';
 
+interface Spacing {
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+}
+
+interface Radius {
+  topLeft?: number;
+  topRight?: number;
+  bottomRight?: number;
+  bottomLeft?: number;
+}
+
 export interface SpacingProps {
-  value?: { top?: number; bottom?: number; left?: number; right?: number };
-  onValueChange?: (value: {
-    top?: number;
-    bottom?: number;
-    left?: number;
-    right?: number;
-  }) => void;
+  value?: Spacing & Radius;
+  onValueChange?: (value: Spacing | Radius) => void;
   label?: string;
   className?: string;
+  type?: 'spacing' | 'radius';
 }
 
 export function Spacing(props: SpacingProps) {
@@ -20,6 +30,7 @@ export function Spacing(props: SpacingProps) {
     onValueChange,
     label,
     className,
+    type = 'spacing',
   } = props;
 
   const [values, setValues] = useState(value);
@@ -36,35 +47,51 @@ export function Spacing(props: SpacingProps) {
       {label && <Label>{label}</Label>}
       <div className="flex w-full gap-2">
         <div className="grow">
-          <Label className="text-[10px]">Top</Label>
+          <Label className="text-[10px]">
+            {type === 'spacing' ? 'Top' : 'Top left'}
+          </Label>
           <Input
             type="number"
-            defaultValue={values?.top}
-            onChange={(e) => handleChange('top', e)}
+            defaultValue={values.top || values.topLeft}
+            onChange={(e) =>
+              handleChange(type === 'spacing' ? 'top' : 'topLeft', e)
+            }
           />
         </div>
         <div className="grow">
-          <Label className="text-[10px]">Right</Label>
+          <Label className="text-[10px]">
+            {type === 'spacing' ? 'Right' : 'Top right'}
+          </Label>
           <Input
             type="number"
-            defaultValue={values?.right}
-            onChange={(e) => handleChange('right', e)}
+            defaultValue={values.right || values.topRight}
+            onChange={(e) =>
+              handleChange(type === 'spacing' ? 'right' : 'topRight', e)
+            }
           />
         </div>
         <div className="grow">
-          <Label className="text-[10px]">Bottom</Label>
+          <Label className="text-[10px]">
+            {type === 'spacing' ? 'Bottom' : 'Bottom right'}
+          </Label>
           <Input
             type="number"
-            defaultValue={values?.bottom}
-            onChange={(e) => handleChange('bottom', e)}
+            defaultValue={values?.bottom || values.bottomRight}
+            onChange={(e) =>
+              handleChange(type === 'spacing' ? 'bottom' : 'bottomRight', e)
+            }
           />
         </div>
         <div className="grow">
-          <Label className="text-[10px]">Left</Label>
+          <Label className="text-[10px]">
+            {type === 'spacing' ? 'Left' : 'Bottom left'}
+          </Label>
           <Input
             type="number"
-            defaultValue={values?.left}
-            onChange={(e) => handleChange('left', e)}
+            defaultValue={values?.left || values.bottomLeft}
+            onChange={(e) =>
+              handleChange(type === 'spacing' ? 'left' : 'bottomLeft', e)
+            }
           />
         </div>
       </div>

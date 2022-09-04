@@ -130,13 +130,19 @@ function TabsName(props: TabsGeneralProps) {
           <Controller
             name="name.borderRadius"
             control={control}
-            defaultValue={{ top: 0, left: 0, right: 0, bottom: 0 }}
+            defaultValue={{
+              topLeft: 0,
+              topRight: 0,
+              bottomRight: 0,
+              bottomLeft: 0,
+            }}
             render={({ field: { onChange, value } }) => (
               <Spacing
                 className="mb-3"
                 onValueChange={onChange}
                 label="Border radius"
                 value={value}
+                type="radius"
               />
             )}
           />

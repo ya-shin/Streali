@@ -137,6 +137,7 @@ function TabsMessage(props: TabsGeneralProps) {
                 onValueChange={onChange}
                 label="Border radius"
                 value={value}
+                type="radius"
               />
             )}
           />
