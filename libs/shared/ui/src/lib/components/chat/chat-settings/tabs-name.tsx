@@ -49,7 +49,7 @@ function TabsName(props: TabsGeneralProps) {
           <Controller
             name="name.badgesStyle"
             control={control}
-            defaultValue={{ label: 'Twitch default', value: 'twitch' }}
+            defaultValue={'twitch'}
             render={({ field: { onChange, value } }) => (
               <Select
                 label="Badges style"
