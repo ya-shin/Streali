@@ -1,3 +1,4 @@
+export * from './lib/components/code-editor/code-editor';
 export * from './lib/components/popover-navigation/popover-navigation';
 export * from './lib/components/popover/popover';
 export * from './lib/components/chat/chat-demo/chat-demo';
