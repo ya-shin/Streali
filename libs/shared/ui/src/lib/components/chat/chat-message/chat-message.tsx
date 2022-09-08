@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { ChatTheme } from '@streali/shared/schema';
 
 export interface ChatMessageProps {
-  settings: Omit<ChatTheme, 'created_by' | 'id'> | ChatTheme;
+  settings: Omit<ChatTheme, 'user_id' | 'id'> | ChatTheme;
   name: string;
   message: string;
 }

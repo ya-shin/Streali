@@ -10,8 +10,8 @@ import type { ChatTheme } from '@streali/shared/schema';
 
 export interface ChatSettingsProps {
   className?: string;
-  onSettingsChange: (settings: any) => void;
-  defaultSettings: Omit<ChatTheme, 'created_by' | 'id'> | ChatTheme;
+  onSettingsChange: (settings: unknown) => void;
+  defaultSettings: Omit<ChatTheme, 'user_id' | 'id'> | ChatTheme;
   onSave: (data: FieldValues) => void;
 }
 

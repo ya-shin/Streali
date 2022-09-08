@@ -1,17 +1,15 @@
+import * as z from 'zod';
 import { ChatThemeSchema } from '@streali/shared/schema';
-import { supabase, toastr, ToastType } from '@streali/shared/utils';
+import { apiClient, toastr, ToastType } from '@streali/shared/utils';
 import type { ChatTheme } from '@streali/shared/schema';
 
-export const createChatTheme = async (chatTheme: ChatTheme, userId: string) => {
-  const theme = {
+export const createChatTheme = async (chatTheme: ChatTheme) => {
+  const { data } = await apiClient.post('/chat-themes', {
     ...chatTheme,
     global: {
       ...chatTheme.global,
     },
-    created_by: userId,
-  };
-
-  const { data, error } = await supabase.from('chat_themes').insert([theme]);
+  });
 
   if (data) {
     toastr(
@@ -21,47 +19,42 @@ export const createChatTheme = async (chatTheme: ChatTheme, userId: string) => {
     );
   }
 
-  if (error) {
-    toastr(ToastType.Error, 'Error 🥲', error.message);
-  }
+  // if (error) {
+  //   toastr(ToastType.Error, 'Error 🥲', error.message);
+  // }
 
-  return { data, error };
+  return { data };
 };
 
-export const getUserChatThemes = async (userId: string) => {
-  const { data } = await supabase
-    .from('chat_themes')
-    .select()
-    .eq('created_by', userId);
+export const getUserChatThemes = async () => {
+  const { data } = await apiClient.get('/chat-themes');
 
   return data;
 };
 
 export const getChatThemeById = async (themeId: string) => {
-  const { data } = await supabase
-    .from('chat_themes')
-    .select()
-    .eq('id', themeId);
+  const { data } = await apiClient.get(`/chat-themes/${themeId}`);
 
-  if (!data || data.length <= 0) {
+  if (!data) {
     return null;
   }
 
-  return ChatThemeSchema.parse(data[0]);
+  const userEmbedSchema = z.object({
+    user: z.object({
+      username: z.string(),
+    }),
+  });
+
+  return ChatThemeSchema.merge(userEmbedSchema).parse(data);
 };
 
-export const updateChatTheme = async (chatTheme: ChatTheme, userId: string) => {
-  const theme = {
+export const updateChatTheme = async (chatTheme: ChatTheme) => {
+  const { data } = await apiClient.put(`/chat-themes/${chatTheme.id}`, {
     ...chatTheme,
     global: {
       ...chatTheme.global,
     },
-  };
-
-  const { data, error } = await supabase
-    .from('chat_themes')
-    .update([theme])
-    .match({ id: chatTheme.id });
+  });
 
   if (data) {
     toastr(
@@ -71,28 +64,26 @@ export const updateChatTheme = async (chatTheme: ChatTheme, userId: string) => {
     );
   }
 
-  if (error) {
-    toastr(ToastType.Error, 'Error 🥲', error.message);
-  }
+  // if (error) {
+  //   toastr(ToastType.Error, 'Error 🥲', error.message);
+  // }
 
-  return { data, error };
+  return { data };
 };
 
 export const deleteChatTheme = async (themeId: string) => {
-  const { error } = await supabase
-    .from('chat_themes')
-    .delete()
-    .eq('id', themeId);
+  try {
+    await apiClient.delete(`/chat-themes/${themeId}`);
 
-  if (error) {
-    toastr(ToastType.Error, 'Error 😞', error.message);
-  } else {
     toastr(
       ToastType.Success,
       'Theme deleted',
-      'Your theme is successfuly deleted !'
+      'Your theme is successfully deleted !'
     );
+  } catch (error) {
+    // @ts-expect-error WTF?!
+    toastr(ToastType.Error, 'Error 😞', error?.message);
   }
 
-  return { id: themeId, error };
+  return { id: themeId };
 };

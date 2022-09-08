@@ -1,13 +1,12 @@
-import { createChatTheme } from '@streali/shared/api';
+import { createChatTheme, queryKeys } from '@streali/shared/api';
 import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
-import { supabase } from '@streali/shared/utils';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import type { ChatTheme } from '@streali/shared/schema';
 
-const defaultSettings: Omit<ChatTheme, 'created_by' | 'id'> | ChatTheme = {
+const defaultSettings: Omit<ChatTheme, 'user_id' | 'id'> | ChatTheme = {
   title: 'Chat Theme Title',
   global: {
     spaceBetweenMessages: 12,
@@ -55,22 +54,25 @@ const defaultSettings: Omit<ChatTheme, 'created_by' | 'id'> | ChatTheme = {
 export function CreateChatbox() {
   const [settings, setSettings] = useState<Omit<
     ChatTheme,
-    'id' | 'created_by'
+    'id' | 'user_id'
   > | null>(defaultSettings);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const createTheme = useMutation(async (theme: FieldValues) => {
-    const userId = supabase.auth.user()?.id;
-    if (userId) {
-      const { data } = await createChatTheme(theme as ChatTheme, userId);
-      if (data) {
-        navigate('/chatbox/library');
-      }
+    const { data } = await createChatTheme(theme as ChatTheme);
+
+    if (data) {
+      navigate('/chatbox/library');
     }
   });
 
   const handleSubmit = (theme: FieldValues) => {
-    createTheme.mutate(theme);
+    createTheme.mutate(theme, {
+      onSuccess: () => {
+        void queryClient.invalidateQueries(queryKeys.chats());
+      },
+    });
   };
 
   return (
@@ -78,6 +80,7 @@ export function CreateChatbox() {
       <div className="w-[400px] shrink-0">
         <ChatSettings
           onSettingsChange={(settings) => {
+            // @ts-expect-error Should type that correctly
             setSettings(settings);
           }}
           defaultSettings={defaultSettings}

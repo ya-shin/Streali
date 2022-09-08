@@ -1,12 +1,11 @@
-import { getChatThemeById } from '@streali/shared/api';
+import { getChatThemeById, queryKeys } from '@streali/shared/api';
 import { useQuery } from '@tanstack/react-query';
 
-export function useChatTheme(themeId?: string) {
-  const query = useQuery(['chat', themeId], () => getChatThemeById(themeId!), {
+export function useChatTheme(themeId: string) {
+  return useQuery(queryKeys.chat(themeId), () => getChatThemeById(themeId), {
     enabled: typeof themeId !== 'undefined',
+    staleTime: Infinity,
   });
-
-  return query;
 }
 
 export default useChatTheme;

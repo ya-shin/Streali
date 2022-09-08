@@ -1,14 +1,7 @@
-import { updateChatTheme } from '@streali/shared/api';
+import { queryKeys, updateChatTheme } from '@streali/shared/api';
 import { useChatTheme } from '@streali/shared/hooks';
-import {
-  ChatDemo,
-  ChatMessage,
-  ChatSettings,
-  CodeEditor,
-  CodeEditorLanguage,
-} from '@streali/shared/ui';
-import { supabase } from '@streali/shared/utils';
-import { useMutation } from '@tanstack/react-query';
+import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,19 +9,26 @@ import type { ChatTheme } from '@streali/shared/schema';
 
 export function EditChatbox() {
   const { themeId } = useParams();
-  const { data: theme, status, error } = useChatTheme(themeId);
+  const { data: theme, status, error } = useChatTheme(themeId!);
   const [settings, setSettings] = useState<ChatTheme | null>(null);
   const navigate = useNavigate();
 
-  const createTheme = useMutation(async (theme: FieldValues) => {
-    const userId = supabase.auth.user()?.id;
-    if (userId) {
-      const { data } = await updateChatTheme(theme as ChatTheme, userId);
+  const queryClient = useQueryClient();
+  const createTheme = useMutation(
+    async (theme: FieldValues) => {
+      const { data } = await updateChatTheme(theme as ChatTheme);
+
       if (data) {
         navigate('/chatbox/library');
       }
+    },
+    {
+      onSuccess: () => {
+        void queryClient.invalidateQueries(queryKeys.chat(themeId));
+        void queryClient.invalidateQueries(queryKeys.chats());
+      },
     }
-  });
+  );
 
   useEffect(() => {
     if (theme) {
@@ -54,6 +54,7 @@ export function EditChatbox() {
         {settings && (
           <ChatSettings
             onSettingsChange={(settings) => {
+              // @ts-expect-error Should type that correctly
               setSettings(settings);
             }}
             defaultSettings={settings}

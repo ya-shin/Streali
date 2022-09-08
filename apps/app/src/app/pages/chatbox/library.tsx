@@ -1,4 +1,4 @@
-import { deleteChatTheme } from '@streali/shared/api';
+import { deleteChatTheme, queryKeys } from '@streali/shared/api';
 import { useUserChatThemes } from '@streali/shared/hooks';
 import {
   Button,
@@ -6,16 +6,23 @@ import {
   Popover,
   PopoverNavigation,
 } from '@streali/shared/ui';
-import { supabase, toastr, ToastType } from '@streali/shared/utils';
-import { useMutation } from '@tanstack/react-query';
+import { toastr, ToastType } from '@streali/shared/utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function LibraryChatbox() {
-  const userId = supabase.auth.user()?.id;
-  const { data, isLoading } = useUserChatThemes(userId);
+  const { data, isLoading } = useUserChatThemes();
+  const queryClient = useQueryClient();
 
-  const deleteTheme = useMutation(async (themeId: string) => {
-    deleteChatTheme(themeId);
-  });
+  const deleteTheme = useMutation(
+    async (themeId: string) => {
+      deleteChatTheme(themeId);
+    },
+    {
+      onSuccess: () => {
+        void queryClient.invalidateQueries(queryKeys.chats());
+      },
+    }
+  );
 
   return (
     <div className="p-10">

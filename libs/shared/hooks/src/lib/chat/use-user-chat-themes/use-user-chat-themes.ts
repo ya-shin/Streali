@@ -1,4 +1,4 @@
-import { getUserChatThemes } from '@streali/shared/api';
+import { getUserChatThemes, queryKeys } from '@streali/shared/api';
 import { useQuery } from '@tanstack/react-query';
 import { ChatMessage } from '@streali/shared/interfaces';
 
@@ -9,15 +9,10 @@ export interface UseUserChatThemes {
   isLoading: boolean;
 }
 
-export function useUserChatThemes(userId?: string): UseUserChatThemes {
-  const { data, error, isLoading } = useQuery(
-    ['chat'],
-    async () => await getUserChatThemes(userId!),
-    {
-      enabled: typeof userId !== 'undefined',
-    }
-  );
-  return { data, error, isLoading };
+export function useUserChatThemes(): UseUserChatThemes {
+  return useQuery(queryKeys.chats(), getUserChatThemes, {
+    staleTime: Infinity,
+  });
 }
 
 export default useUserChatThemes;

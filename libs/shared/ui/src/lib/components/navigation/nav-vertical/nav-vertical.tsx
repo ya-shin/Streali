@@ -1,11 +1,11 @@
-import { supabase } from '@streali/shared/utils';
-import { useEffect, useState } from 'react';
 import Avatar from '../../avatar/avatar';
 import Icon from '../../icon/icon';
 import PopoverNavigation, {
   PopoverLink,
 } from '../../popover-navigation/popover-navigation';
 import Popover from '../../popover/popover';
+import { useAuthUser } from '../../../../../../hooks/src/lib/auth/use-auth-user/use-auth-user';
+import { useLogout } from '../../../../../../hooks/src/lib/auth/use-logout/use-logout';
 
 export interface NavVerticalItems {
   icon: string;
@@ -18,14 +18,9 @@ export interface NavVerticalProps {
 }
 
 export function NavVertical(props: NavVerticalProps) {
-  const [avatar, setAvatar] = useState<string>('');
-
+  const { data: user } = useAuthUser();
+  const { mutate: logout } = useLogout();
   const { navigation } = props;
-  const user = supabase.auth.user();
-
-  const handleSignOut = () => {
-    supabase.auth.signOut();
-  };
 
   const userNavigation: PopoverLink[] = [
     {
@@ -38,13 +33,9 @@ export function NavVertical(props: NavVerticalProps) {
       icon: 'logout-box-line',
       link: '/login',
       color: 'error',
-      onClick: handleSignOut,
+      onClick: () => logout(),
     },
   ];
-
-  useEffect(() => {
-    setAvatar(user?.user_metadata['avatar_url']);
-  }, [user]);
 
   return (
     <div className="h-screen w-[72px] bg-dark-500 border-r border-dark-300 fixed top-0 left-0 flex flex-col justify-between items-center py-3">
@@ -71,13 +62,21 @@ export function NavVertical(props: NavVerticalProps) {
         </div>
       </div>
       <div>
-        <Popover
-          trigger={<Avatar className="cursor-pointer" size={40} src={avatar} />}
-          side="right"
-          align="end"
-        >
-          <PopoverNavigation links={userNavigation} />
-        </Popover>
+        {user && (
+          <Popover
+            trigger={
+              <Avatar
+                className="cursor-pointer"
+                size={40}
+                src={user.avatar_url}
+              />
+            }
+            side="right"
+            align="end"
+          >
+            <PopoverNavigation links={userNavigation} />
+          </Popover>
+        )}
       </div>
     </div>
   );

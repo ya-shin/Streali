@@ -1,21 +1,23 @@
-import { useChatTheme, useUser } from '@streali/shared/hooks';
-import { TwitchMessage } from '@streali/shared/schema';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import tmi from 'tmi.js';
+import { useParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useChatTheme } from '@streali/shared/hooks';
+import { TwitchMessage } from '@streali/shared/schema';
 import { EmoteOptions, parse } from 'simple-tmi-emotes';
 import { ChatMessage } from '@streali/shared/ui';
 
 function EmbedChatbox() {
-  const [twitchUsername, setTwitchUsername] = useState<string | null>(null);
   const [messages, setMessages] = useState<TwitchMessage[]>([]);
   const { themeId } = useParams();
-  const { data: theme } = useChatTheme(themeId);
-  const { data: user } = useUser(theme?.created_by);
+  const { data: theme } = useChatTheme(themeId!);
 
-  const client = new tmi.Client({
-    channels: [twitchUsername ? twitchUsername : ''],
-  });
+  const client = useMemo(
+    () =>
+      new tmi.Client({
+        channels: [theme ? theme.user.username : ''],
+      }),
+    [theme]
+  );
 
   client.on('message', (_, tags, message) => {
     const options: EmoteOptions = {
@@ -50,45 +52,31 @@ function EmbedChatbox() {
     (_channel, _username, _deleteMessage, userstate) => {
       setMessages((msgs: TwitchMessage[]) => {
         const msgId = userstate['target-msg-id'];
-        const allMsgs = [...msgs];
-        const cleanMsgs = allMsgs.filter((m) => m.id !== msgId);
 
-        return cleanMsgs;
+        return [...msgs].filter((m) => m.id !== msgId);
       });
     }
   );
 
   client.on('ban', (_channel, username) => {
     setMessages((msgs) => {
-      const allMsgs = [...msgs];
-      const cleanMsgs = allMsgs.filter((m) => m.twitch !== username);
-
-      return cleanMsgs;
+      return [...msgs].filter((m) => m.twitch !== username);
     });
   });
 
   client.on('timeout', (_channel, username) => {
     setMessages((msgs) => {
-      const allMsgs = [...msgs];
-      const cleanMsgs = allMsgs.filter((m) => m.twitch !== username);
-
-      return cleanMsgs;
+      return [...msgs].filter((m) => m.twitch !== username);
     });
   });
 
   client.on('clearchat', () => setMessages([]));
 
   useEffect(() => {
-    if (user) {
-      setTwitchUsername(user.twitch.name);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (twitchUsername) {
+    if (theme) {
       client.connect();
     }
-  }, [twitchUsername]);
+  }, [client, theme]);
 
   useEffect(() => {
     document.body.style.backgroundColor = 'transparent';
@@ -96,6 +84,7 @@ function EmbedChatbox() {
 
   return (
     <div className="flex flex-col items-end justify-end h-screen p-10 overflow-hidden grow">
+      {JSON.stringify(theme)}
       {theme &&
         messages.map((message, index) => (
           <ChatMessage

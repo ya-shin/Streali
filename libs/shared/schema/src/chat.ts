@@ -66,7 +66,7 @@ export const MessageSchema = z.object({
 
 export const ChatThemeSchema = z.object({
   id: z.string(),
-  created_by: z.string(),
+  user_id: z.string(),
   title: z.string(),
   global: GlobalSchema,
   name: NameChatSchema,

@@ -13,13 +13,13 @@ import App from './app/app';
 
 import './main.scss';
 import { toastr, ToastType } from '@streali/shared/utils';
-import { ApiError } from '@supabase/supabase-js';
 
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) => {
-      const err = error as ApiError;
-      toastr(ToastType.Error, 'Error', err.message || 'An error occured');
+      // const err = error as ApiError;
+      // @ts-expect-error YOLO
+      toastr(ToastType.Error, 'Error', error.message || 'An error occured');
     },
   }),
 });

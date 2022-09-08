@@ -1,14 +1,6 @@
+import { Routes, Route, useLocation, Outlet, Navigate } from 'react-router-dom';
 import { NavVertical } from '@streali/shared/ui';
-import { supabase } from '@streali/shared/utils';
-import { useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-  Outlet,
-  Navigate,
-} from 'react-router-dom';
+import { useAuthCheck } from '@streali/shared/hooks';
 import CreateChatbox from './pages/chatbox/create';
 import EditChatbox from './pages/chatbox/edit';
 import EmbedChatbox from './pages/chatbox/embed';
@@ -16,17 +8,21 @@ import LibraryChatbox from './pages/chatbox/library';
 import Login from './pages/login';
 
 const ProtectedRoute = ({ redirectPath = '/login' }) => {
-  const user = supabase.auth.user();
+  const { data, status } = useAuthCheck();
 
-  if (!user) {
-    return <Navigate to={redirectPath} replace />;
+  if (status === 'loading') {
+    return <div>Loading...</div>;
   }
 
-  return <Outlet />;
+  if (data?.authenticated) {
+    return <Outlet />;
+  }
+
+  return <Navigate to={redirectPath} replace />;
 };
 
 export function App() {
-  const navigate = useNavigate();
+  const { status } = useAuthCheck();
   const location = useLocation();
 
   const navigation = [
@@ -49,13 +45,9 @@ export function App() {
 
   const noLayout = ['/login', '/embed'];
 
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') {
-        navigate('/login');
-      }
-    });
-  }, [navigate]);
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
