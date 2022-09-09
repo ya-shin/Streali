@@ -84,7 +84,6 @@ function EmbedChatbox() {
 
   return (
     <div className="flex flex-col items-end justify-end h-screen p-10 overflow-hidden grow">
-      {JSON.stringify(theme)}
       {theme &&
         messages.map((message, index) => (
           <ChatMessage
