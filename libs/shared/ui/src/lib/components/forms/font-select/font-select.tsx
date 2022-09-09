@@ -22,16 +22,14 @@ export function FontSelect(props: FontSelectProps) {
 
   const { data: fonts } = useGoogleFonts();
 
-  const handleChange = (
-    value: SingleValue<{ value: string; label: string }>
-  ) => {
+  function handleChange(value: SingleValue<{ value: string; label: string }>) {
     const font = fonts?.find((f) => f.family === value?.value);
     const variants = font?.variants.filter((v) => !v.includes('italic'));
 
     if (font) {
       onChange && onChange(font.family, variants ? variants : []);
     }
-  };
+  }
 
   return (
     <Select
@@ -43,7 +41,7 @@ export function FontSelect(props: FontSelectProps) {
       placeholder="Choose a font..."
       defaultValue={defaultValue}
       disabled={disabled}
-      onChange={(e) => handleChange(e)}
+      onChange={handleChange}
     />
   );
 }
