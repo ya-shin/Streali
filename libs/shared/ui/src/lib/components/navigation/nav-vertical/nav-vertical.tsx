@@ -4,7 +4,9 @@ import PopoverNavigation, {
   PopoverLink,
 } from '../../popover-navigation/popover-navigation';
 import Popover from '../../popover/popover';
-import { useAuthUser, useLogout } from "@streali/shared/hooks";
+import { useAuthUser, useLogout } from '@streali/shared/hooks';
+import ButtonNav from './button-nav';
+import { useState } from 'react';
 
 export interface NavVerticalItems {
   icon: string;
@@ -20,6 +22,7 @@ export function NavVertical(props: NavVerticalProps) {
   const { data: user } = useAuthUser();
   const { mutate: logout } = useLogout();
   const { navigation } = props;
+  const [userNavOpen, setUserNavOpen] = useState(false);
 
   const userNavigation: PopoverLink[] = [
     {
@@ -43,19 +46,7 @@ export function NavVertical(props: NavVerticalProps) {
         <div className="flex flex-col gap-1">
           {navigation.map((item, index) => (
             <div key={index}>
-              <Popover
-                side="right"
-                align="start"
-                trigger={
-                  <div className="w-10 h-10 cursor-pointer bg-dark-500 rounded-md text-white flex justify-center items-center hover:bg-primary-100 hover:text-primary-500 transition-colors duration-200 relative">
-                    <Icon name={item.icon} />
-                  </div>
-                }
-              >
-                <div className="flex flex-col gap-2">
-                  <PopoverNavigation links={item.items} />
-                </div>
-              </Popover>
+              <ButtonNav icon={item.icon} items={item.items} />
             </div>
           ))}
         </div>
@@ -63,6 +54,8 @@ export function NavVertical(props: NavVerticalProps) {
       <div>
         {user && (
           <Popover
+            open={userNavOpen}
+            onOpenChange={setUserNavOpen}
             trigger={
               <Avatar
                 className="cursor-pointer"
@@ -73,7 +66,10 @@ export function NavVertical(props: NavVerticalProps) {
             side="right"
             align="end"
           >
-            <PopoverNavigation links={userNavigation} />
+            <PopoverNavigation
+              links={userNavigation}
+              onLinkClick={() => setUserNavOpen(false)}
+            />
           </Popover>
         )}
       </div>
