@@ -9,9 +9,17 @@ export default {
 
 const Template: ComponentStory<typeof Dialog> = (args) => <Dialog {...args} />;
 
+let open = false;
+
 export const Primary = Template.bind({});
 Primary.args = {
   trigger: <Button>Trigger dialog</Button>,
   title: 'Dialog title',
-  children: <p>Dialog content !</p>,
+  onOpenChange: (isOpen) => (open = isOpen),
+  children: (
+    <div>
+      <p>Dialog content !</p>
+    </div>
+  ),
+  open: open,
 };

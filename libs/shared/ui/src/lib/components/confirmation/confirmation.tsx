@@ -24,6 +24,7 @@ export function Confirmation(props: ConfirmationProps) {
     onConfirm,
   } = props;
   const [confirm, setConfirm] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent) => {
     setConfirm((e.target as HTMLInputElement).value);
@@ -31,12 +32,20 @@ export function Confirmation(props: ConfirmationProps) {
 
   const handleConfirm = () => {
     if (confirm === word) {
-      onConfirm?.();
+      onConfirm && onConfirm();
+      setIsOpen(false);
     }
   };
 
   return (
-    <Dialog trigger={trigger} title={title}>
+    <Dialog
+      trigger={trigger}
+      title={title}
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+      }}
+    >
       <p>{text}</p>
       <p className="mb-3">
         {confirmText}: <b className="font-bold text-primary-400">{word}</b>
