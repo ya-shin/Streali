@@ -1,9 +1,8 @@
-import { createChatTheme, queryKeys } from '@streali/shared/api';
-import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useCreateChatTheme } from '@streali/shared/hooks';
+import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
 import type { ChatTheme } from '@streali/shared/schema';
 
 const defaultSettings: Omit<ChatTheme, 'user_id' | 'id'> | ChatTheme = {
@@ -57,23 +56,15 @@ export function CreateChatbox() {
     'id' | 'user_id'
   > | null>(defaultSettings);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
-  const createTheme = useMutation(async (theme: FieldValues) => {
-    const { data } = await createChatTheme(theme as ChatTheme);
-
-    if (data) {
-      navigate('/chatbox/library');
-    }
-  });
-
-  const handleSubmit = (theme: FieldValues) => {
-    createTheme.mutate(theme, {
-      onSuccess: () => {
-        void queryClient.invalidateQueries(queryKeys.chats());
+  const { mutate: createChatTheme } = useCreateChatTheme();
+  function handleSubmit(theme: FieldValues) {
+    createChatTheme(theme as ChatTheme, {
+      onSuccess() {
+        navigate('/chatbox/library');
       },
     });
-  };
+  }
 
   return (
     <div className="flex w-full">

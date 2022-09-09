@@ -4,7 +4,6 @@
   "projects": {
     "app": "apps/app",
     "app-e2e": "apps/app-e2e",
-    "shared-api": "libs/shared/api",
     "shared-hooks": "libs/shared/hooks",
     "shared-mocks": "libs/shared/mocks",
     "shared-schema": "libs/shared/schema",

@@ -1,7 +1,5 @@
-import { queryKeys, updateChatTheme } from '@streali/shared/api';
-import { useChatTheme } from '@streali/shared/hooks';
+import { useChatTheme, useUpdateChatTheme } from '@streali/shared/hooks';
 import { ChatDemo, ChatMessage, ChatSettings } from '@streali/shared/ui';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,32 +11,20 @@ export function EditChatbox() {
   const [settings, setSettings] = useState<ChatTheme | null>(null);
   const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
-  const createTheme = useMutation(
-    async (theme: FieldValues) => {
-      const { data } = await updateChatTheme(theme as ChatTheme);
-
-      if (data) {
-        navigate('/chatbox/library');
-      }
-    },
-    {
-      onSuccess: () => {
-        void queryClient.invalidateQueries(queryKeys.chat(themeId));
-        void queryClient.invalidateQueries(queryKeys.chats());
-      },
-    }
-  );
-
   useEffect(() => {
     if (theme) {
       setSettings(theme);
     }
   }, [theme]);
 
-  const handleSubmit = (theme: FieldValues) => {
-    createTheme.mutate(theme);
-  };
+  const { mutate: updateChatTheme } = useUpdateChatTheme();
+  function handleSubmit(theme: FieldValues) {
+    updateChatTheme(theme as ChatTheme, {
+      onSuccess() {
+        navigate('/chatbox/library');
+      },
+    });
+  }
 
   if (status === 'loading' || !settings) {
     return <div>Loading...</div>;

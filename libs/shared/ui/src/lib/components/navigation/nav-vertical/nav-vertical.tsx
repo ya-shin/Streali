@@ -4,8 +4,7 @@ import PopoverNavigation, {
   PopoverLink,
 } from '../../popover-navigation/popover-navigation';
 import Popover from '../../popover/popover';
-import { useAuthUser } from '../../../../../../hooks/src/lib/auth/use-auth-user/use-auth-user';
-import { useLogout } from '../../../../../../hooks/src/lib/auth/use-logout/use-logout';
+import { useAuthUser, useLogout } from "@streali/shared/hooks";
 
 export interface NavVerticalItems {
   icon: string;

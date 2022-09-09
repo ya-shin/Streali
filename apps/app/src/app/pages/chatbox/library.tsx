@@ -1,5 +1,4 @@
-import { deleteChatTheme, queryKeys } from '@streali/shared/api';
-import { useUserChatThemes } from '@streali/shared/hooks';
+import { useDeleteChatTheme, useUserChatThemes } from '@streali/shared/hooks';
 import {
   Button,
   ButtonColor,
@@ -7,22 +6,10 @@ import {
   PopoverNavigation,
 } from '@streali/shared/ui';
 import { toastr, ToastType } from '@streali/shared/utils';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function LibraryChatbox() {
   const { data, isLoading } = useUserChatThemes();
-  const queryClient = useQueryClient();
-
-  const deleteTheme = useMutation(
-    async (themeId: string) => {
-      deleteChatTheme(themeId);
-    },
-    {
-      onSuccess: () => {
-        void queryClient.invalidateQueries(queryKeys.chats());
-      },
-    }
-  );
+  const { mutate: deleteChatTheme } = useDeleteChatTheme();
 
   return (
     <div className="p-10">
@@ -84,7 +71,7 @@ export function LibraryChatbox() {
                             'For delete this chatbox theme, type the name of the chatbox theme',
                           textButton: 'Delete',
                           onConfirm: () => {
-                            theme.id && deleteTheme.mutate(theme.id);
+                            theme.id && deleteChatTheme(theme.id);
                           },
                         },
                       },
