@@ -21,10 +21,11 @@ export interface PopoverLink {
 
 export interface PopoverNavigationProps {
   links: PopoverLink[];
+  onLinkClick?: () => void;
 }
 
 export function PopoverNavigation(props: PopoverNavigationProps) {
-  const { links } = props;
+  const { links, onLinkClick } = props;
 
   const colorClassName = {
     primary: 'hover:bg-primary-500',
@@ -39,6 +40,7 @@ export function PopoverNavigation(props: PopoverNavigationProps) {
           {!link.onClick && link.link && (
             <Link
               to={link.link}
+              onClick={onLinkClick}
               className={`inline-flex h-7 gap-2 items-center px-2 transition-colors rounded cursor-pointer w-full ${
                 colorClassName[link.color || 'primary']
               } ${link.className}`}
@@ -52,7 +54,10 @@ export function PopoverNavigation(props: PopoverNavigationProps) {
               className={`inline-flex h-7 gap-2 items-center px-2 transition-colors rounded cursor-pointer w-full ${
                 colorClassName[link.color || 'primary']
               } ${link.className}`}
-              onClick={link.onClick}
+              onClick={(e) => {
+                link.onClick && link.onClick(e);
+                onLinkClick && onLinkClick();
+              }}
             >
               {link.icon && <Icon name={link.icon} className="mr-1" />}
               {link.title}
@@ -65,13 +70,21 @@ export function PopoverNavigation(props: PopoverNavigationProps) {
               word={link.confirm.word}
               confirmText={link.confirm.confirmText}
               textButton={link.confirm.textButton}
-              onConfirm={link.confirm.onConfirm}
+              onConfirmationClose={onLinkClick}
+              onConfirm={() => {
+                link.confirm &&
+                  link.confirm.onConfirm &&
+                  link.confirm.onConfirm();
+                onLinkClick && onLinkClick();
+              }}
               trigger={
                 <div
                   className={`inline-flex h-7 gap-2 items-center px-2 transition-colors rounded cursor-pointer w-full ${
                     colorClassName[link.color || 'primary']
                   } ${link.className}`}
-                  onClick={link.onClick}
+                  onClick={(e) => {
+                    link.onClick && link.onClick(e);
+                  }}
                 >
                   {link.icon && <Icon name={link.icon} className="mr-1" />}
                   {link.title}

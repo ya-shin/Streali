@@ -11,6 +11,7 @@ export interface ConfirmationProps {
   confirmText: string;
   textButton?: string;
   onConfirm?: () => void;
+  onConfirmationClose?: () => void;
 }
 
 export function Confirmation(props: ConfirmationProps) {
@@ -22,6 +23,7 @@ export function Confirmation(props: ConfirmationProps) {
     confirmText,
     textButton = 'Confirm',
     onConfirm,
+    onConfirmationClose,
   } = props;
   const [confirm, setConfirm] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +46,7 @@ export function Confirmation(props: ConfirmationProps) {
       open={isOpen}
       onOpenChange={(open) => {
         setIsOpen(open);
+        if (!open) onConfirmationClose && onConfirmationClose();
       }}
     >
       <p>{text}</p>
