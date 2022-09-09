@@ -1,22 +1,42 @@
 import * as DialogLib from '@radix-ui/react-dialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button, { ButtonColor, ButtonSize } from '../button/button';
 
 export interface DialogProps {
   trigger: React.ReactNode;
+  triggerContainerClassName?: string;
   title: string;
   children: React.ReactNode;
   buttons?: React.ReactNode;
-  open?: boolean;
+  open: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function Dialog(props: DialogProps) {
-  const { trigger, title, children, buttons, open = false } = props;
+  const {
+    trigger,
+    title,
+    children,
+    buttons,
+    open,
+    triggerContainerClassName = '',
+    onOpenChange,
+  } = props;
   const [isOpen, setIsOpen] = useState(open);
 
+  const handleOpenChange = (open: boolean) => {
+    onOpenChange && onOpenChange(open);
+  };
+
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
+
   return (
-    <DialogLib.Root defaultOpen={isOpen} onOpenChange={(o) => setIsOpen(o)}>
-      <DialogLib.Trigger className="w-full">{trigger}</DialogLib.Trigger>
+    <DialogLib.Root open={isOpen} onOpenChange={handleOpenChange}>
+      <DialogLib.Trigger asChild>
+        <div className={triggerContainerClassName}>{trigger}</div>
+      </DialogLib.Trigger>
       <DialogLib.Portal>
         <DialogLib.Overlay className="w-full h-full bg-dark-500 opacity-70 fixed top-0 left-0 z-10" />
         <DialogLib.Content
@@ -27,11 +47,13 @@ export function Dialog(props: DialogProps) {
               {title}
             </DialogLib.Title>
             <DialogLib.Close asChild>
-              <Button
-                buttonIcon="close-line"
-                size={ButtonSize.Small}
-                color={ButtonColor.Dark}
-              />
+              <div>
+                <Button
+                  buttonIcon="close-line"
+                  size={ButtonSize.Small}
+                  color={ButtonColor.Dark}
+                />
+              </div>
             </DialogLib.Close>
           </div>
           <div className="mb-3">{children}</div>
