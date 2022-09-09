@@ -7,7 +7,7 @@ export interface FontSelectProps {
   className?: string;
   value?: string;
   defaultValue?: { value: string; label: string };
-  onChange?: (value: SingleValue<{ value: string; label: string }>) => void;
+  onChange?: (fontName: string, variants: string[]) => void;
   disabled?: boolean;
 }
 
@@ -22,6 +22,17 @@ export function FontSelect(props: FontSelectProps) {
 
   const { data: fonts } = useGoogleFonts();
 
+  const handleChange = (
+    value: SingleValue<{ value: string; label: string }>
+  ) => {
+    const font = fonts?.find((f) => f.family === value?.value);
+    const variants = font?.variants.filter((v) => !v.includes('italic'));
+
+    if (font) {
+      onChange && onChange(font.family, variants ? variants : []);
+    }
+  };
+
   return (
     <Select
       options={fonts.map((font) => {
@@ -32,7 +43,7 @@ export function FontSelect(props: FontSelectProps) {
       placeholder="Choose a font..."
       defaultValue={defaultValue}
       disabled={disabled}
-      onChange={onChange}
+      onChange={(e) => handleChange(e)}
     />
   );
 }

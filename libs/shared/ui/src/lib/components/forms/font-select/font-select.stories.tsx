@@ -11,4 +11,8 @@ const Template: ComponentStory<typeof FontSelect> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  onChange: (fontName: string, variants: string[]) => {
+    console.log({fontName, variants});
+  }
+};
