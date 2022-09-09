@@ -6,7 +6,6 @@
     "app-e2e": "apps/app-e2e",
     "shared-api": "libs/shared/api",
     "shared-hooks": "libs/shared/hooks",
-    "shared-interfaces": "libs/shared/interfaces",
     "shared-mocks": "libs/shared/mocks",
     "shared-schema": "libs/shared/schema",
     "shared-ui": "libs/shared/ui",

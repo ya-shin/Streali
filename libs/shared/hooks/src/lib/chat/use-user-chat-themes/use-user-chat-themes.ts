@@ -1,10 +1,10 @@
 import { getUserChatThemes, queryKeys } from '@streali/shared/api';
 import { useQuery } from '@tanstack/react-query';
-import { ChatMessage } from '@streali/shared/interfaces';
+import { ChatTheme } from '@streali/shared/schema';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UseUserChatThemes {
-  data?: ChatMessage[] | undefined | null;
+  data?: ChatTheme[] | undefined | null;
   error: unknown;
   isLoading: boolean;
 }
