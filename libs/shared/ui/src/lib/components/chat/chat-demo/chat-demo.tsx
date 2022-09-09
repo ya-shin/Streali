@@ -1,11 +1,10 @@
-import { ChatMessage as Message } from '@streali/shared/interfaces';
 import { chatMessageMock } from '@streali/shared/mocks';
-import { TwitchMessage } from '@streali/shared/schema';
+import { ChatTheme, TwitchMessage } from '@streali/shared/schema';
 import { useEffect, useState } from 'react';
 import { ChatMessage } from '../chat-message/chat-message';
 
 export interface ChatDemoProps {
-  settings: Message;
+  settings: Omit<ChatTheme, 'id' | 'user_id'>;
 }
 
 export function ChatDemo(props: ChatDemoProps) {
