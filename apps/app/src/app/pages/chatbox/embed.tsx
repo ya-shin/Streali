@@ -19,63 +19,69 @@ function EmbedChatbox() {
     [theme]
   );
 
-  client.on('message', (_, tags, message) => {
-    const options: EmoteOptions = {
-      format: 'default',
-      themeMode: 'light',
-      scale: '2.0',
-    };
-
-    const msg: TwitchMessage = {
-      id: tags?.id,
-      username: tags['display-name'],
-      twitch: tags?.username,
-      emotes: tags?.emotes || {},
-      date: new Date(),
-      message,
-      badges: tags?.badges,
-      mod: tags?.mod,
-      subscriber: tags?.subscriber,
-      color: tags?.color,
-    };
-
-    msg.message = parse(msg.message, msg.emotes, options);
-
-    setMessages((oldMessages) => {
-      if (oldMessages.length >= 50) oldMessages.shift();
-      return [...oldMessages, msg];
-    });
-  });
-
-  client.on(
-    'messagedeleted',
-    (_channel, _username, _deleteMessage, userstate) => {
-      setMessages((msgs: TwitchMessage[]) => {
-        const msgId = userstate['target-msg-id'];
-
-        return [...msgs].filter((m) => m.id !== msgId);
-      });
-    }
-  );
-
-  client.on('ban', (_channel, username) => {
-    setMessages((msgs) => {
-      return [...msgs].filter((m) => m.twitch !== username);
-    });
-  });
-
-  client.on('timeout', (_channel, username) => {
-    setMessages((msgs) => {
-      return [...msgs].filter((m) => m.twitch !== username);
-    });
-  });
-
-  client.on('clearchat', () => setMessages([]));
-
   useEffect(() => {
     if (theme) {
-      client.connect();
+      void client.connect();
+
+      client.on('message', (_, tags, message) => {
+        const options: EmoteOptions = {
+          format: 'default',
+          themeMode: 'light',
+          scale: '2.0',
+        };
+
+        const msg: TwitchMessage = {
+          id: tags?.id,
+          username: tags['display-name'],
+          twitch: tags?.username,
+          emotes: tags?.emotes || {},
+          date: new Date(),
+          message,
+          badges: tags?.badges,
+          mod: tags?.mod,
+          subscriber: tags?.subscriber,
+          color: tags?.color,
+        };
+
+        msg.message = parse(msg.message, msg.emotes, options);
+
+        setMessages((oldMessages) => {
+          if (oldMessages.length >= 50) oldMessages.shift();
+          return [...oldMessages, msg];
+        });
+      });
+
+      client.on(
+        'messagedeleted',
+        (_channel, _username, _deleteMessage, userstate) => {
+          setMessages((msgs: TwitchMessage[]) => {
+            const msgId = userstate['target-msg-id'];
+
+            return [...msgs].filter((m) => m.id !== msgId);
+          });
+        }
+      );
+
+      client.on('ban', (_channel, username) => {
+        setMessages((msgs) => {
+          return [...msgs].filter((m) => m.twitch !== username);
+        });
+      });
+
+      client.on('timeout', (_channel, username) => {
+        setMessages((msgs) => {
+          return [...msgs].filter((m) => m.twitch !== username);
+        });
+      });
+
+      client.on('clearchat', () => setMessages([]));
     }
+
+    return () => {
+      if (client.readyState() === 'OPEN') {
+        void client.disconnect();
+      }
+    };
   }, [client, theme]);
 
   useEffect(() => {
