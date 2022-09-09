@@ -18,13 +18,16 @@
               }
             ]
           }
-        ]
+        ],
+        "@typescript-eslint/no-non-null-assertion": "off"
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
