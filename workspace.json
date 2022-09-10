@@ -7,6 +7,7 @@
     "shared-hooks": "libs/shared/hooks",
     "shared-mocks": "libs/shared/mocks",
     "shared-schema": "libs/shared/schema",
+    "shared-types": "libs/shared/types",
     "shared-ui": "libs/shared/ui",
     "shared-ui-e2e": "apps/shared-ui-e2e",
     "shared-utils": "libs/shared/utils"
