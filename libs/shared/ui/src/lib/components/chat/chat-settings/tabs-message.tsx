@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import Accordion from '../../accordion/accordion';
 import AccordionItem from '../../accordion/accordion-item';
 import Color from '../../forms/color/color';
-import FontSelect, { fontVariants } from '../../forms/font-select/font-select';
+import FontSelect, { fontVariants }, { fontVariants } from '../../forms/font-select/font-select';
+import Select from '../../forms/select/select';
 import Select from '../../forms/select/select';
 import Slider from '../../forms/slider/slider';
 import Spacing from '../../forms/spacing/spacing';
@@ -16,6 +18,14 @@ export interface TabsGeneralProps {
 
 function TabsMessage(props: TabsGeneralProps) {
   const { control } = props;
+  const [fontVariants, setFontVariants] = useState<fontVariants[]>([
+    { label: 'Thin', value: '100' },
+    { label: 'Light', value: '300' },
+    { label: 'Regular', value: 'regular' },
+    { label: 'Medium', value: '500' },
+    { label: 'Bold', value: '700' },
+    { label: 'Black', value: '900' },
+  ]);
   const [fontVariants, setFontVariants] = useState<fontVariants[]>([
     { label: 'Thin', value: '100' },
     { label: 'Light', value: '300' },
@@ -47,10 +57,7 @@ function TabsMessage(props: TabsGeneralProps) {
               <FontSelect
                 label="Font (with Google Fonts)"
                 className="mb-3"
-                onChange={(fontName, variants) => {
-                  setFontVariants(variants);
-                  onChange(fontName);
-                }}
+                onChange={(value) => onChange(value)}
                 defaultValue={{ value: value, label: value }}
               />
             )}
