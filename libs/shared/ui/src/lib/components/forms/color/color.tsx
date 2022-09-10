@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ColorResult, hexToHsva } from '@uiw/color-convert';
-import { useState } from 'react';
+import { hexToHsva } from '@uiw/color-convert';
+import { useRef, useState } from 'react';
 import Icon from '../../icon/icon';
 import { InputState } from '../input/input';
 import Label from '../label/label';
 import { ColorPicker } from '../color-picker/color-picker';
+import { useEffect } from 'react';
 
 export interface ColorProps extends React.ComponentPropsWithoutRef<'input'> {
   label?: string;
@@ -30,6 +31,9 @@ export function Color(props: ColorProps) {
 
   const [val, setVal] = useState<string>(value || '#000000');
   const [showPicker, setShowPicker] = useState<boolean>(false);
+  const input = useRef<HTMLLabelElement>(null);
+  const [top, setTop] = useState<number>(0);
+  const [left, setLeft] = useState<number>(0);
 
   const stateClassName = {
     [InputState.Normal]: '',
@@ -66,17 +70,24 @@ export function Color(props: ColorProps) {
     };
   };
 
+  useEffect(() => {
+    setTop(input.current?.offsetTop || 0);
+    setLeft(input.current?.offsetLeft || 0);
+  }, [input]);
+
   return (
-    <label className={`relative block ${containerClassName}`}>
+    <label className={`relative block ${containerClassName}`} ref={input}>
       {label && <Label className={labelClassName}>{label}</Label>}
       <div
         className={`h-10 w-full border-2 border-dark-300 text-sm text-white flex items-center gap-2 bg-dark-500 rounded-md px-4 outline-none focus:border-primary-300 transition ${stateClassName[state]} ${haveValueClassName} ${disabledClassName} ${inputProps.className}`}
         {...inputProps}
       >
-        {showPicker && (
+        {showPicker && input.current && (
           <>
             <ColorPicker
-              className="absolute z-10 top-[110%] left-0"
+              top={top}
+              left={left}
+              className=""
               color={hexaToHsva(val)}
               onChange={(e) => onChangePickerValue(e)}
             />
