@@ -22,8 +22,7 @@ export function ChatSettings(props: ChatSettingsProps) {
   });
 
   useEffect(() => {
-    onSettingsChange(getValues());
-    const subscription = watch((value) => console.log(value));
+    const subscription = watch((value) => onSettingsChange(value));
     return () => subscription.unsubscribe();
   }, [watch, onSettingsChange, getValues]);
 

@@ -72,22 +72,6 @@ export function ChatMessage(props: ChatMessageProps) {
     }
   }, [settings]);
 
-  useEffect(() => {
-    if (nameStyle.fontFamily && messageStyle.fontFamily) {
-      (async () => {
-        const WebFont = await import('webfontloader');
-        WebFont.load({
-          google: {
-            families: [
-              nameStyle.fontFamily as string,
-              messageStyle.fontFamily as string,
-            ],
-          },
-        });
-      })();
-    }
-  }, [nameStyle.fontFamily, messageStyle.fontFamily]);
-
   return (
     <div style={containerStyle} className="flex w-full">
       <div style={nameStyle} className="shrink-0">

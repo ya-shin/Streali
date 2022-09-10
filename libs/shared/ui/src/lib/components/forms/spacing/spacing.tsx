@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../input/input';
 import Label from '../label/label';
 
-interface Spacing {
+interface SpacingValue {
   top?: number;
   left?: number;
   right?: number;
@@ -17,8 +17,8 @@ interface Radius {
 }
 
 export interface SpacingProps {
-  value?: Spacing & Radius;
-  onValueChange?: (value: Spacing | Radius) => void;
+  value?: SpacingValue & Radius;
+  onValueChange?: (value: SpacingValue | Radius) => void;
   label?: string;
   className?: string;
   type?: 'spacing' | 'radius';

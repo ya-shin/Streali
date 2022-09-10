@@ -26,6 +26,24 @@ export function ChatDemo(props: ChatDemoProps) {
     pushMessage();
   }, []);
 
+  useEffect(() => {
+    if (settings) {
+      (async () => {
+        const WebFont = await import('webfontloader');
+        WebFont.load({
+          google: {
+            families: [
+              settings.name.fontFamily +
+                ':100,200,300,400,500,600,700,800,900,950',
+              settings.message.fontFamily +
+                ':100,200,300,400,500,600,700,800,900,950',
+            ],
+          },
+        });
+      })();
+    }
+  }, [settings.name.fontFamily, settings.message.fontFamily]);
+
   return (
     <>
       {demo.map((message, index) => (

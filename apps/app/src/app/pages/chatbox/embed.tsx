@@ -21,6 +21,24 @@ function EmbedChatbox() {
 
   useEffect(() => {
     if (theme) {
+      (async () => {
+        const WebFont = await import('webfontloader');
+        WebFont.load({
+          google: {
+            families: [
+              theme.name.fontFamily +
+                ':100,200,300,400,500,600,700,800,900,950',
+              theme.message.fontFamily +
+                ':100,200,300,400,500,600,700,800,900,950',
+            ],
+          },
+        });
+      })();
+    }
+  }, [theme]);
+
+  useEffect(() => {
+    if (theme) {
       void client.connect();
 
       client.on('message', (_, tags, message) => {
