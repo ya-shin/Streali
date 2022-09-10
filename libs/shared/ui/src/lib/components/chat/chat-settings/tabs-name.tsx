@@ -148,7 +148,7 @@ function TabsName(props: TabsGeneralProps) {
               <Color
                 label="Text color"
                 onColorChange={onChange}
-                className="mb-3"
+                containerClassName="mb-3"
                 value={value}
               />
             )}
@@ -161,7 +161,7 @@ function TabsName(props: TabsGeneralProps) {
               <Color
                 label="Background color"
                 onColorChange={onChange}
-                className="mb-3"
+                containerClassName="mb-3"
                 value={value}
               />
             )}
@@ -174,7 +174,6 @@ function TabsName(props: TabsGeneralProps) {
               <Color
                 label="Border color"
                 onColorChange={onChange}
-                className="mb-3"
                 value={value}
               />
             )}

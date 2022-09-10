@@ -47,7 +47,7 @@ export function Color(props: ColorProps) {
   };
 
   const onChangePickerValue = (value: string) => {
-    const newVal = value.substring(7) === "ff" ? value.slice(0,7) : value;
+    const newVal = value.substring(7) === 'ff' ? value.slice(0, 7) : value;
     setVal(newVal);
     onColorChange && onColorChange(newVal);
   };
@@ -67,7 +67,7 @@ export function Color(props: ColorProps) {
   };
 
   return (
-    <label className={`relative ${containerClassName}`}>
+    <label className={`relative block ${containerClassName}`}>
       {label && <Label className={labelClassName}>{label}</Label>}
       <div
         className={`h-10 w-full border-2 border-dark-300 text-sm text-white flex items-center gap-2 bg-dark-500 rounded-md px-4 outline-none focus:border-primary-300 transition ${stateClassName[state]} ${haveValueClassName} ${disabledClassName} ${inputProps.className}`}
@@ -95,7 +95,9 @@ export function Color(props: ColorProps) {
           type="text"
           className="flex grow bg-transparent border-none outline-none"
           maxLength={9}
-          value={val.includes('#') ? val.toUpperCase() : `#${val.toUpperCase()}`}
+          value={
+            val.includes('#') ? val.toUpperCase() : `#${val.toUpperCase()}`
+          }
           onChange={(e) => onChangeTextValue(e)}
         />
         <div onClick={() => setShowPicker(true)}>
