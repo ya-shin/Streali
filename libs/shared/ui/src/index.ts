@@ -1,3 +1,6 @@
+export * from './lib/components/alerts/elements/alert-video/alert-video';
+export * from './lib/components/alerts/elements/alert-image/alert-image';
+export * from './lib/components/alerts/alert-element-editor/alert-element-editor';
 export * from './lib/components/timeline/timeline-element/timeline-element';
 export * from './lib/components/chat-card/chat-card';
 export * from './lib/components/confirmation/confirmation';
