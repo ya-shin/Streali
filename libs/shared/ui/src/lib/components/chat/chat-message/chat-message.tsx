@@ -33,6 +33,7 @@ export function ChatMessage(props: ChatMessageProps) {
       setNameStyle({
         width: settings.name.fullWidth ? '100%' : 'auto',
         fontFamily: settings.name.fontFamily,
+        fontWeight: settings.name.fontWeight,
         color: settings.name.textColor,
         backgroundColor: settings.name.backgroundColor,
         textAlign: settings.name.textAlign as 'left' | 'center' | 'right',
@@ -52,6 +53,7 @@ export function ChatMessage(props: ChatMessageProps) {
       setMessageStyle({
         width: settings.message.fullWidth ? '100%' : 'auto',
         fontFamily: settings.message.fontFamily,
+        fontWeight: settings.message.fontWeight,
         color: settings.message.textColor,
         backgroundColor: settings.message.backgroundColor,
         textAlign: settings.message.textAlign as 'left' | 'right' | 'center',

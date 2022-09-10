@@ -11,4 +11,6 @@ const Template: ComponentStory<typeof ChatSettings> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  onSettingsChange: (settings) => console.log(settings),
+};

@@ -9,6 +9,7 @@ export const GlobalSchema = z.object({
 export const NameChatSchema = z.object({
   fullWidth: z.boolean(),
   fontFamily: z.string(),
+  fontWeight: z.string(),
   fontSize: z.string(),
   textAlign: z.enum(['left', 'center', 'right']),
   textColor: z.string(),
@@ -38,6 +39,7 @@ export const NameChatSchema = z.object({
 export const MessageSchema = z.object({
   fullWidth: z.boolean(),
   fontFamily: z.string(),
+  fontWeight: z.string(),
   fontSize: z.string(),
   textAlign: z.enum(['left', 'center', 'right']),
   textColor: z.string(),

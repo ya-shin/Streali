@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import Accordion from '../../accordion/accordion';
 import AccordionItem from '../../accordion/accordion-item';
 import Color from '../../forms/color/color';
-import FontSelect from '../../forms/font-select/font-select';
+import FontSelect, { fontVariants } from '../../forms/font-select/font-select';
+import Select from '../../forms/select/select';
 import Slider from '../../forms/slider/slider';
 import Spacing from '../../forms/spacing/spacing';
 import Switch from '../../forms/switch/switch';
@@ -14,6 +16,14 @@ export interface TabsGeneralProps {
 
 function TabsMessage(props: TabsGeneralProps) {
   const { control } = props;
+  const [fontVariants, setFontVariants] = useState<fontVariants[]>([
+    { label: 'Thin', value: '100' },
+    { label: 'Light', value: '300' },
+    { label: 'Regular', value: 'regular' },
+    { label: 'Medium', value: '500' },
+    { label: 'Bold', value: '700' },
+    { label: 'Black', value: '900' },
+  ]);
 
   return (
     <div>
@@ -37,8 +47,30 @@ function TabsMessage(props: TabsGeneralProps) {
               <FontSelect
                 label="Font (with Google Fonts)"
                 className="mb-3"
-                onChange={(fontName, variants) => onChange(fontName)}
+                onChange={(value) => onChange(value)}
                 defaultValue={{ value: value, label: value }}
+              />
+            )}
+          />
+          <Controller
+            name="message.fontWeight"
+            control={control}
+            defaultValue="regular"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                label="Font weight"
+                options={fontVariants.map(({ label, value }) => {
+                  return {
+                    label: label[0].toUpperCase() + label.substring(1),
+                    value: value,
+                  };
+                })}
+                onChange={(value) => onChange(value?.value)}
+                defaultValue={{
+                  label: value[0].toUpperCase() + value.substring(1),
+                  value: value,
+                }}
+                className="mb-3"
               />
             )}
           />

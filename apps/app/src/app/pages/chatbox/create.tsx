@@ -15,6 +15,7 @@ const defaultSettings: Omit<ChatTheme, 'user_id' | 'id'> | ChatTheme = {
   name: {
     fullWidth: false,
     fontFamily: 'Rubik',
+    fontWeight: 'regular',
     fontSize: '16',
     textAlign: 'left' as 'left' | 'right' | 'center',
     textColor: '#000000',
@@ -33,6 +34,7 @@ const defaultSettings: Omit<ChatTheme, 'user_id' | 'id'> | ChatTheme = {
   message: {
     fullWidth: false,
     fontFamily: 'Rubik',
+    fontWeight: 'regular',
     fontSize: '14',
     textAlign: 'left' as 'left' | 'right' | 'center',
     textColor: '#000000',
