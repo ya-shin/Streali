@@ -47,7 +47,10 @@ function TabsMessage(props: TabsGeneralProps) {
               <FontSelect
                 label="Font (with Google Fonts)"
                 className="mb-3"
-                onChange={(value) => onChange(value)}
+                onChange={(fontName, variants) => {
+                  setFontVariants(variants);
+                  onChange(fontName);
+                }}
                 defaultValue={{ value: value, label: value }}
               />
             )}
