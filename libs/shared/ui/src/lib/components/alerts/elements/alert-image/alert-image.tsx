@@ -13,7 +13,7 @@ export function AlertImage(props: AlertImageProps) {
 
   return (
     <img
-      className="draggable hover:outline hover:outline-1 hover:outline-white/30 transition-colors absolute"
+      className="draggable-alert hover:outline hover:outline-1 hover:outline-white/30 transition-colors absolute"
       src={src}
       alt="img"
       style={{

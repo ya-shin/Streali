@@ -2,7 +2,9 @@ import { Pixels } from '@streali/shared/types';
 import interact from 'interactjs';
 import { useEffect } from 'react';
 import AlertImage from '../elements/alert-image/alert-image';
+import AlertLottie from '../elements/alert-lottie/alert-lottie';
 import AlertVideo from '../elements/alert-video/alert-video';
+import { testAnimation } from './test-lottie-animation';
 
 export interface AlertElementEditorProps {
   width: Pixels;
@@ -15,7 +17,7 @@ export function AlertElementEditor(props: AlertElementEditorProps) {
   const { width, height, onElementMove, onElementResize } = props;
 
   const initInteract = () => {
-    const container = interact('.draggable');
+    const container = interact('.draggable-alert');
 
     container
       .draggable({
@@ -92,6 +94,15 @@ export function AlertElementEditor(props: AlertElementEditorProps) {
         width={200 as Pixels}
         height={100 as Pixels}
         posX={50 as Pixels}
+        posY={50 as Pixels}
+      />
+      <AlertLottie
+        play={true}
+        loop
+        json={testAnimation}
+        width={300 as Pixels}
+        height={300 as Pixels}
+        posX={10 as Pixels}
         posY={50 as Pixels}
       />
     </div>

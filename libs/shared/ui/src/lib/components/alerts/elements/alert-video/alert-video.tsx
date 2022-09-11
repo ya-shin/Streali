@@ -32,7 +32,7 @@ export function AlertVideo(props: AlertVideoProps) {
       ref={video}
       loop={loop}
       muted
-      className="draggable hover:outline hover:outline-1 hover:outline-white/30 transition-colors absolute"
+      className="draggable-alert hover:outline hover:outline-1 hover:outline-white/30 transition-colors absolute"
       style={{
         width: width,
         height: height,
