@@ -1,6 +1,7 @@
 import { Pixels } from '@streali/shared/types';
 import interact from 'interactjs';
 import { useEffect } from 'react';
+import AlertText from '../alert-text/alert-text';
 import AlertImage from '../elements/alert-image/alert-image';
 import AlertLottie from '../elements/alert-lottie/alert-lottie';
 import AlertVideo from '../elements/alert-video/alert-video';
@@ -25,9 +26,9 @@ export function AlertElementEditor(props: AlertElementEditorProps) {
           move: moveElement,
         },
         modifiers: [
-          interact.modifiers.restrictRect({
-            restriction: 'parent',
-          }),
+          // interact.modifiers.restrictRect({
+          //   restriction: 'parent',
+          // }),
         ],
       })
       .resizable({
@@ -78,7 +79,7 @@ export function AlertElementEditor(props: AlertElementEditorProps) {
   return (
     <div
       style={{ width, height }}
-      className="rounded-md border-2 border-dark-300 bg-dark-400"
+      className="rounded-md border-2 border-dark-300 bg-dark-400 relative"
     >
       <AlertImage
         src="https://seeklogo.com/images/T/twitch-logo-4931D91F85-seeklogo.com.png"
@@ -104,6 +105,14 @@ export function AlertElementEditor(props: AlertElementEditorProps) {
         height={300 as Pixels}
         posX={10 as Pixels}
         posY={50 as Pixels}
+      />
+      <AlertText
+        text="Coucou ça va ?"
+        width={200 as Pixels}
+        height={50 as Pixels}
+        posX={50 as Pixels}
+        posY={400 as Pixels}
+        settings={{ color: 'red' }}
       />
     </div>
   );

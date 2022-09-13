@@ -1,3 +1,4 @@
+export * from './lib/components/alerts/alert-text/alert-text';
 export * from './lib/components/alerts/elements/alert-lottie/alert-lottie';
 export * from './lib/components/alerts/elements/alert-video/alert-video';
 export * from './lib/components/alerts/elements/alert-image/alert-image';
