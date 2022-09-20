@@ -47,7 +47,7 @@ export function ChatMessage(props: ChatMessageProps) {
         marginBottom: settings.name.margin.bottom + 'px',
         marginLeft: settings.name.margin.left + 'px',
         marginRight: settings.name.margin.right + 'px',
-        borderRadius: `${settings.name.borderRadius.topLeft}px ${settings.name.borderRadius.topRight}px ${settings.name.borderRadius.bottomLeft}px ${settings.name.borderRadius.bottomRight}px`,
+        borderRadius: `${settings.name.borderRadius.topLeft}px ${settings.name.borderRadius.topRight}px ${settings.name.borderRadius.bottomRight}px ${settings.name.borderRadius.bottomLeft}px`,
       });
 
       setMessageStyle({
@@ -67,7 +67,7 @@ export function ChatMessage(props: ChatMessageProps) {
         marginBottom: settings.message.margin.bottom + 'px',
         marginLeft: settings.message.margin.left + 'px',
         marginRight: settings.message.margin.right + 'px',
-        borderRadius: `${settings.message.borderRadius.topLeft}px ${settings.name.borderRadius.topRight}px ${settings.name.borderRadius.bottomLeft}px ${settings.name.borderRadius.bottomRight}px`,
+        borderRadius: `${settings.message.borderRadius.topLeft}px ${settings.message.borderRadius.topRight}px ${settings.message.borderRadius.bottomRight}px ${settings.message.borderRadius.bottomLeft}px`,,
       });
     }
   }, [settings]);
